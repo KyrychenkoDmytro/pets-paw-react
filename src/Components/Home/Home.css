@@ -1,0 +1,22 @@
+.Home {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    width: 745px;
+    height: 900px;
+}
+
+.Home .girl-and-pet {
+    display: block;
+    position: absolute;
+    top: -90px;
+    right: -30px;
+}
+
+.Home .bgc-image {
+    /* display: flex; */
+    width: 680px;
+    height: 840px;
+    background-color: #FBE0DC;
+    border-radius: 20px;
+}

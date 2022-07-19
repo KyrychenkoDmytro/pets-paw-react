@@ -1,0 +1,12 @@
+.App {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 1440px;
+  height: 900px;
+  padding: 30px;
+  margin: 0 auto;
+  background-color: #E5E5E5;
+  overflow: hidden;
+}
+
