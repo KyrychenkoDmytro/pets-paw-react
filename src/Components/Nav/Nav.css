@@ -38,6 +38,9 @@
 }
 
 .Nav ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 138px;
     height: 198px;
     border-radius: 20px;
@@ -56,9 +59,9 @@
     background-color: #FFD280;
 }
 
-.Nav ul li a {
+.Nav ul li a img {
     display: block;
-    width: 130px;
+    width: 138px;
     height: 198px;
 }
 .Nav .wrapper {
