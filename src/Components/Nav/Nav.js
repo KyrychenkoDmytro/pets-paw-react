@@ -1,7 +1,9 @@
 import './Nav.css';
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
 const Nav = () => {
+
     return (
         <div className="Nav">
             <div className="nav-logo">
@@ -13,7 +15,7 @@ const Nav = () => {
             <nav>
                 <ul>
                     <li><Link to="/voting"><img src="./images/home/vote-table.png" alt="vote-table" /></Link></li>
-                    <li><Link to="#"><img src="./images/home/pet-breeds.png" alt="pet-breeds" /></Link></li>
+                    <li><Link to="/breeds"><img src="./images/home/pet-breeds.png" alt="pet-breeds" /></Link></li>
                     <li><Link to="#"><img src="./images/home/images-search.png" alt="images-search" /></Link></li>
                 </ul>
             </nav>

@@ -7,6 +7,10 @@
     overflow: hidden;
 }
 
+.hover {
+    background-color: #FF868E;
+}
+
 .Nav h1 {
     font-size: 44px;
     font-weight: 500;
@@ -83,3 +87,5 @@
     line-height: 16px;
     color: #FF868E;
 }
+
+
