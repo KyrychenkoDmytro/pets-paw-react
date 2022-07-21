@@ -16,7 +16,7 @@ const Nav = () => {
                 <ul>
                     <li><Link to="/voting"><img src="./images/home/vote-table.png" alt="vote-table" /></Link></li>
                     <li><Link to="/breeds"><img src="./images/home/pet-breeds.png" alt="pet-breeds" /></Link></li>
-                    <li><Link to="#"><img src="./images/home/images-search.png" alt="images-search" /></Link></li>
+                    <li><Link to="/gallery"><img src="./images/home/images-search.png" alt="images-search" /></Link></li>
                 </ul>
             </nav>
             <div className='wrapper'>
