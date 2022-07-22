@@ -1,7 +1,15 @@
 import './Breeds.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Breeds = () => {
+    const navigate = useNavigate();
+
+    const idBreed = (e) => {
+        if (e.target.classList.contains('item')) {
+            navigate('id');
+        }
+    }
+
     return (
         <div className="Breeds">
             <input type="text" placeholder='Search for breeds by name' />
@@ -34,7 +42,7 @@ const Breeds = () => {
                     <div className="breeds-sort"><img src="./images/breeds/z-a.svg" alt="z-a" /></div>
                     <div className="breeds-sort"><img src="./images/breeds/a-z.svg" alt="a-z" /></div>
                 </div>
-                <div className="container-grid">
+                <div className="container-grid" onClick={idBreed}>
                     <div className="item grid-1"></div>
                     <div className="item grid-2"></div>
                     <div className="item grid-3"></div>

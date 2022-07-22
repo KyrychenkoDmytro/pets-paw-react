@@ -44,7 +44,6 @@ const Voting = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

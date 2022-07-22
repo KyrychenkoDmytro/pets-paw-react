@@ -6,6 +6,7 @@ import Error from '../Error/Error';
 import Voting from '../Voting/Voting';
 import Breeds from '../Breeds/Breeds';
 import Gallery from '../Gallery/Gallery';
+import IdBreed from '../Breeds/IdBreed/IdBreed';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/voting" element={<Voting />} />
           <Route path="/breeds" element={<Breeds />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/breeds/id" element={<IdBreed />} />
           <Route path="*" element={<Error />} />
         </Routes>
 
