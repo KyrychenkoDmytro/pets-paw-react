@@ -1,5 +1,5 @@
 import './Voting.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Voting = () => {
     return (
@@ -7,9 +7,9 @@ const Voting = () => {
             <input type="text" placeholder='Search for breeds by name' />
             <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
             <nav>
-                <Link to="#"><img src="./images/voting/like.svg" alt="like" /></Link>
-                <Link to="#"><img src="./images/voting/favourites.svg" alt="favourites" /></Link>
-                <Link to="#"><img src="./images/voting/dislike.svg" alt="dislike" /></Link>
+                <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>
+                <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
+                <NavLink to="/dislikes"><img src="./images/voting/dislike.svg" alt="dislike" /></NavLink>
             </nav>
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>

@@ -7,6 +7,9 @@ import Voting from '../Voting/Voting';
 import Breeds from '../Breeds/Breeds';
 import Gallery from '../Gallery/Gallery';
 import IdBreed from '../Breeds/IdBreed/IdBreed';
+import Like from '../Like/Like';
+import Dislike from '../Dislike/Dislike';
+import Favourite from '../Favourite/Favourite';
 
 function App() {
   return (
@@ -19,6 +22,10 @@ function App() {
           <Route path="/breeds" element={<Breeds />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/breeds/id" element={<IdBreed />} />
+          <Route path="/likes" element={<Like />} />
+          <Route path="/dislikes" element={<Dislike />} />
+          <Route path="/favourites" element={<Favourite />} />
+
           <Route path="*" element={<Error />} />
         </Routes>
 

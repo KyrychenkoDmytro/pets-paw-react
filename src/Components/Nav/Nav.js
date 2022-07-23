@@ -1,6 +1,5 @@
 import './Nav.css';
-import { Link} from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
 
 const Nav = () => {
 
@@ -20,9 +19,9 @@ const Nav = () => {
                 </ul>
             </nav>
             <div className='wrapper'>
-                <div>VOTING</div>
-                <div>BREEDS</div>
-                <div>GALLERY</div>
+                <NavLink to="/voting">VOTING</NavLink>
+                <NavLink to="/breeds">BREEDS</NavLink>
+                <NavLink to="/gallery">GALLERY</NavLink>
             </div>
         </div>
     );

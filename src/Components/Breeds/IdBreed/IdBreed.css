@@ -66,7 +66,7 @@
 
 .IdBreed .flex-wrapper-back {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -179,7 +179,7 @@
 
 .IdBreed .choice-wrapper .breed-info .about-breed {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .IdBreed .choice-wrapper .breed-info .about-breed .about-breed-left {

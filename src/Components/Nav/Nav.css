@@ -7,8 +7,9 @@
     overflow: hidden;
 }
 
-.hover {
-    background-color: #FF868E;
+.Nav .active {
+    background-color: #FF868E !important;
+    color: #fff !important;
 }
 
 .Nav h1 {
@@ -68,13 +69,14 @@
     width: 138px;
     height: 198px;
 }
+
 .Nav .wrapper {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.Nav .wrapper div{
+.Nav .wrapper a{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,6 +88,8 @@
     font-size: 12px;
     line-height: 16px;
     color: #FF868E;
+    text-decoration: none;
+    letter-spacing: 2px;
 }
 
 

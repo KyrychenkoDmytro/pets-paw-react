@@ -1,5 +1,5 @@
 import './IdBreed.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const IdBreed = () => {
     return (
@@ -7,14 +7,14 @@ const IdBreed = () => {
             <input type="text" placeholder='Search for breeds by name' />
             <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
             <nav>
-                <Link to="#"><img src="../images/voting/like.svg" alt="like" /></Link>
-                <Link to="#"><img src="../images/voting/favourites.svg" alt="favourites" /></Link>
-                <Link to="#"><img src="../images/voting/dislike.svg" alt="dislike" /></Link>
+                <NavLink to="/likes"><img src="../images/voting/like.svg" alt="like" /></NavLink>
+                <NavLink to="/favourites"><img src="../images/voting/favourites.svg" alt="favourites" /></NavLink>
+                <NavLink to="/dislikes"><img src="../images/voting/dislike.svg" alt="dislike" /></NavLink>
             </nav>
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/breeds"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
-                    <div className='voting-lable'>voting</div>
+                    <div className='voting-lable'>breeds</div>
                     <div className='show-id-breed'>28</div>
                 </div>
                 <div className="show-cat">

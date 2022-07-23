@@ -1,8 +1,27 @@
 import './Breeds.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+const breeds = ['All breeds', 'Abyssinian', 'Aegean', 'American Bobtail', 'American Curl', 'American Shorthair', 'American Wirehair', '...'];
+const limits = ['Limit: 5', 'Limit: 10', 'Limit: 15', 'Limit: 20']
 
 const Breeds = () => {
     const navigate = useNavigate();
+
+    const [open, setOpen] = useState(false);
+    const [openLimit, setOpenLimit] = useState(false);
+    const [selected, setSelected] = useState(0);
+    const [selectedLimit, setSelectedLimit] = useState(0);
+
+    const selectLi = (i) => {
+        setSelected(i);
+        setOpen(false);
+    }
+
+    const selectLimit = (i) => {
+        setSelectedLimit(i);
+        setOpenLimit(false);
+    }
 
     const idBreed = (e) => {
         if (e.target.classList.contains('item')) {
@@ -15,32 +34,40 @@ const Breeds = () => {
             <input type="text" placeholder='Search for breeds by name' />
             <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
             <nav>
-                <Link to="#"><img src="./images/voting/like.svg" alt="like" /></Link>
-                <Link to="#"><img src="./images/voting/favourites.svg" alt="favourites" /></Link>
-                <Link to="#"><img src="./images/voting/dislike.svg" alt="dislike" /></Link>
+                <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>
+                <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
+                <NavLink to="/dislikes"><img src="./images/voting/dislike.svg" alt="dislike" /></NavLink>
             </nav>
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>breeds</div>
-                    <select name="breeds" id="breeds-select" className='breeds-select'>
-                        <option>All breeds</option>
-                        <option>Abyssinian</option>
-                        <option>Aegean</option>
-                        <option>American Bobtail</option>
-                        <option>American Curl</option>
-                        <option>American Shorthair</option>
-                        <option>American Wirehair</option>
-                        <option>...</option>
-                    </select>
-                    <select name="breeds" id="breeds-select-limit" className='breeds-select select-limit'>
-                        <option>Limit: 5</option>
-                        <option>Limit: 10</option>
-                        <option>Limit: 15</option>
-                        <option>Limit: 20</option>
-                    </select>
-                    <div className="breeds-sort"><img src="./images/breeds/z-a.svg" alt="z-a" /></div>
-                    <div className="breeds-sort"><img src="./images/breeds/a-z.svg" alt="a-z" /></div>
+                    <button name="breeds" className='breeds-select' onClick={() => setOpen(!open)}>
+                        <span>{breeds[selected]}</span>
+                        <img src="./images/breeds/arrow-down.svg" alt="arrow" />
+                    </button>
+                    {
+                        open && (
+                            <div id="popup-breeds">
+                                <ul>
+                                    {breeds.map((item, i) => <li onClick={() => selectLi(i)} key={item}>{item}</li>)}
+                                </ul>
+                            </div>
+                        )
+                    }
+                    <button className='breeds-select select-limit'>
+                        <span onClick={() => setOpenLimit(!openLimit)}>{limits[selectedLimit]}</span>
+                        <img src="./images/breeds/arrow-down.svg" alt="arrow" />
+                    </button>
+                    {openLimit && (
+                        <div id="popup-limits">
+                            <ul>
+                                {limits.map((item, i) => <li onClick={() => selectLimit(i)} key={item}>{item}</li>)}
+                            </ul>
+                        </div>
+                    )}
+                    <button className="breeds-sort"><img src="./images/breeds/z-a.svg" alt="z-a" /></button>
+                    <button className="breeds-sort"><img src="./images/breeds/a-z.svg" alt="a-z" /></button>
                 </div>
                 <div className="container-grid" onClick={idBreed}>
                     <div className="item grid-1"></div>
