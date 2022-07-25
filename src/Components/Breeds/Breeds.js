@@ -1,13 +1,24 @@
 import './Breeds.css';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const breeds = ['All breeds', 'Abyssinian', 'Aegean', 'American Bobtail', 'American Curl', 'American Shorthair', 'American Wirehair', '...'];
 const limits = ['Limit: 5', 'Limit: 10', 'Limit: 15', 'Limit: 20']
 
+
 const Breeds = () => {
+
+    useEffect(() => {
+        fetch('https://api.thecatapi.com/v1/breeds')
+            .then((response) => response.json())
+            .then((data) => setallBreeds(data));
+    }, []);
+
+    
+
     const navigate = useNavigate();
 
+    const [allBreeds, setallBreeds] = useState([]);
     const [open, setOpen] = useState(false);
     const [openLimit, setOpenLimit] = useState(false);
     const [selected, setSelected] = useState(0);
@@ -23,11 +34,11 @@ const Breeds = () => {
         setOpenLimit(false);
     }
 
-    const idBreed = (e) => {
-        if (e.target.classList.contains('item')) {
-            navigate('id');
-        }
+    const idBreed = (item) => {
+        navigate(item.reference_image_id);
     }
+    let a = [...allBreeds];
+    a.length = 20;
 
     return (
         <div className="Breeds">
@@ -69,16 +80,8 @@ const Breeds = () => {
                     <button className="breeds-sort"><img src="./images/breeds/z-a.svg" alt="z-a" /></button>
                     <button className="breeds-sort"><img src="./images/breeds/a-z.svg" alt="a-z" /></button>
                 </div>
-                <div className="container-grid" onClick={idBreed}>
-                    <div className="item grid-1"></div>
-                    <div className="item grid-2"></div>
-                    <div className="item grid-3"></div>
-                    <div className="item grid-4"></div>
-                    <div className="item grid-5"></div>
-                    <div className="item grid-6"></div>
-                    <div className="item grid-7"></div>
-                    <div className="item grid-8"></div>
-                    <div className="item grid-9"></div>
+                <div className="container-grid">
+                    {a.map((item, index) => <div onClick={() => idBreed(item)} key={item.image.id} style={{ background: `url(${item.image.url})`, backgroundSize: 'cover' }} className={`item grid-${index + 1}`}></div>)}
                 </div>
             </div>
         </div>

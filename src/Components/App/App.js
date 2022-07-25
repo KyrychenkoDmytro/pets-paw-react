@@ -10,8 +10,10 @@ import IdBreed from '../Breeds/IdBreed/IdBreed';
 import Like from '../Like/Like';
 import Dislike from '../Dislike/Dislike';
 import Favourite from '../Favourite/Favourite';
-
+ 
+ 
 function App() {
+
   return (
     <div className="App">
       <Router>
@@ -21,14 +23,12 @@ function App() {
           <Route path="/voting" element={<Voting />} />
           <Route path="/breeds" element={<Breeds />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/breeds/id" element={<IdBreed />} />
+          <Route path="/breeds/:breedsId" element={<IdBreed />} />
           <Route path="/likes" element={<Like />} />
           <Route path="/dislikes" element={<Dislike />} />
           <Route path="/favourites" element={<Favourite />} />
-
           <Route path="*" element={<Error />} />
         </Routes>
-
       </Router>
     </div>
   );

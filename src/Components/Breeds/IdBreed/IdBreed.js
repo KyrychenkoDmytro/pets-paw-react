@@ -1,8 +1,27 @@
 import './IdBreed.css';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const IdBreed = () => {
+    let { breedsId } = useParams();
+    console.log(breedsId);
+
+    const api_key = "DEMO_API_KEY";
+
+    useEffect(() => {
+        fetch(`https://api.thecatapi.com/v1/images/${breedsId}`,
+            {
+                headers: {
+                    'x-api-key': api_key
+                }
+            })
+            .then(response => response.json())
+            .then(data => console.log(data));
+    }, [breedsId]);
+
+
     return (
+
         <div className="IdBreed">
             <input type="text" placeholder='Search for breeds by name' />
             <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
@@ -36,11 +55,11 @@ const IdBreed = () => {
                         </div>
                         <div className='about-breed-right'>
                             <p>Origin: <span>United States</span></p>
-                            
+
                             <p>Weight: <span>3 - 5 kgs</span></p>
-                            
+
                             <p>Life span: <span>14 - 15 years</span></p>
-                            
+
                         </div>
                     </div>
                 </div>

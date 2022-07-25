@@ -202,44 +202,25 @@
 }
 
 .Breeds .choice-wrapper .container-grid .grid-1 {
-    background-image: url(../../../public/images/all-cats/image-1.jpg);
+    /* background-image: url(../../../public/images/all-cats/image-1.jpg); */
     grid-row: 1/3;
 }
 
-.Breeds .choice-wrapper .container-grid .grid-2 {
-    background-image: url(../../../public/images/all-cats/image-2.jpg);
-}
-
-.Breeds .choice-wrapper .container-grid .grid-3 {
-    background-image: url(../../../public/images/all-cats/image-3.jpg);
-}
-
 .Breeds .choice-wrapper .container-grid .grid-4 {
-    background-image: url(../../../public/images/all-cats/image-4.jpg);
+    /* background-image: url(../../../public/images/all-cats/image-4.jpg); */
     grid-row: 2/4;
     grid-column: 2/4;
 }
 
-.Breeds .choice-wrapper .container-grid .grid-5 {
-    background-image: url(../../../public/images/all-cats/image-5.jpg);
-}
-
-.Breeds .choice-wrapper .container-grid .grid-6 {
-    background-image: url(../../../public/images/all-cats/image-6.jpg);
-}
-
-.Breeds .choice-wrapper .container-grid .grid-7 {
-    background-image: url(../../../public/images/all-cats/image-7.jpg);
-}
 
 .Breeds .choice-wrapper .container-grid .grid-8 {
-    background-image: url(../../../public/images/all-cats/image-8.jpg);
+    /* background-image: url(../../../public/images/all-cats/image-8.jpg); */
     grid-row: 4/6;
     grid-column: 3;
 }
 
 .Breeds .choice-wrapper .container-grid .grid-9 {
-    background-image: url(../../../public/images/all-cats/image-9.jpg);
+    /* background-image: url(../../../public/images/all-cats/image-9.jpg); */
     grid-row: 5/7;
     grid-column: 1/3;
 }
