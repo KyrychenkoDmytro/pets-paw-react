@@ -2,9 +2,9 @@ import './Favourite.css';
 import { Link, NavLink } from 'react-router-dom';
 
 const Favourite = () => {
-    return(
+    return (
         <div className="Favourite">
- <input type="text" placeholder='Search for breeds by name' />
+            <input type="text" placeholder='Search for breeds by name' />
             <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
             <nav>
                 <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>

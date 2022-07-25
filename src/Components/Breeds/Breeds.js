@@ -14,7 +14,7 @@ const Breeds = () => {
             .then((data) => setallBreeds(data));
     }, []);
 
-    
+
 
     const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ const Breeds = () => {
     }
     let a = [...allBreeds];
     a.length = 20;
-
+console.log(a);
     return (
         <div className="Breeds">
             <input type="text" placeholder='Search for breeds by name' />
@@ -81,11 +81,13 @@ const Breeds = () => {
                     <button className="breeds-sort"><img src="./images/breeds/a-z.svg" alt="a-z" /></button>
                 </div>
                 <div className="container-grid">
-                    {a.map((item, index) => <div onClick={() => idBreed(item)} key={item.image.id} style={{ background: `url(${item.image.url})`, backgroundSize: 'cover' }} className={`item grid-${index + 1}`}></div>)}
+                    {a.map((item, index) => <div onClick={() => idBreed(item)} key={item.image.id} style={{ background: `url(${item.image.url}) 0% 0% / cover` }} className={`item grid-${index + 1}`}></div>)}
                 </div>
             </div>
         </div>
     );
 }
+
+// style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
 
 export default Breeds;

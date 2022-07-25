@@ -1,12 +1,18 @@
 import './IdBreed.css';
+import Breed from './Breed/Breed';
+
 import { Link, NavLink, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const IdBreed = () => {
-    let { breedsId } = useParams();
-    console.log(breedsId);
-
     const api_key = "DEMO_API_KEY";
+
+    let { breedsId } = useParams();
+
+    const [breed, setBreed] = useState('');
+    const [url, setUrl] = useState('');
+    const [id, setId] = useState('');
+    const [weight, setWeight] = useState('');
 
     useEffect(() => {
         fetch(`https://api.thecatapi.com/v1/images/${breedsId}`,
@@ -16,10 +22,15 @@ const IdBreed = () => {
                 }
             })
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+                console.log(data);
+                setBreed(data.breeds[0])
+                setUrl(data.url);
+                setId(data.id);
+                setWeight(data.breeds[0].weight.imperial);
+            });
     }, [breedsId]);
-
-
+    console.log(breed);
     return (
 
         <div className="IdBreed">
@@ -34,35 +45,9 @@ const IdBreed = () => {
                 <div className='flex-wrapper-back'>
                     <Link to="/breeds"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>breeds</div>
-                    <div className='show-id-breed'>28</div>
+                    <div className='show-id-breed'>{id}</div>
                 </div>
-                <div className="show-cat">
-                    <div className='wrapper-slides'>
-                        <div className="slide-id"></div>
-                        <div className="slide-id"></div>
-                        <div className="slide-id"></div>
-                        <div className="slide-id"></div>
-                        <div className="slide-id"></div>
-                    </div>
-                </div>
-                <h1 className='id-breed-title'>Basenji</h1>
-                <div className='breed-info'>
-                    <h2>Family companion cat</h2>
-                    <div className="about-breed">
-                        <div className='about-breed-left'>
-                            <p>Temperament:</p>
-                            <span>Active, Energetic, Independent, Intelligent, Gentle</span>
-                        </div>
-                        <div className='about-breed-right'>
-                            <p>Origin: <span>United States</span></p>
-
-                            <p>Weight: <span>3 - 5 kgs</span></p>
-
-                            <p>Life span: <span>14 - 15 years</span></p>
-
-                        </div>
-                    </div>
-                </div>
+                <Breed url={url} breed={breed} weight={weight}/>
             </div>
 
         </div>
