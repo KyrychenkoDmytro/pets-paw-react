@@ -15,7 +15,7 @@ const IdBreed = () => {
     const [weight, setWeight] = useState('');
 
     useEffect(() => {
-        fetch(`https://api.thecatapi.com/v1/images/${breedsId}`,
+        fetch(`https://api.thecatapi.com/v1/breeds`,
             {
                 headers: {
                     'x-api-key': api_key
@@ -23,11 +23,12 @@ const IdBreed = () => {
             })
             .then(response => response.json())
             .then(data => {
+                data = data.filter(item => item.id === breedsId)
                 console.log(data);
-                setBreed(data.breeds[0])
-                setUrl(data.url);
-                setId(data.id);
-                setWeight(data.breeds[0].weight.imperial);
+                setBreed(...data);
+                setUrl(data[0].image.url);
+                setId(data[0].id);
+                setWeight(data[0].weight.imperial);
             });
     }, [breedsId]);
     console.log(breed);

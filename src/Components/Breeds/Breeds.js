@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 
 const api_key = "DEMO_API_KEY";
 
-const breeds = ['All breeds', 'Abyssinian', 'Aegean', 'American Bobtail', 'American Curl', 'American Shorthair', 'American Wirehair', '...'];
 const limits = [{ name: 'Limit: 5', search: 'limit=5' }, { name: 'Limit: 10', search: 'limit=10' }, { name: 'Limit: 15', search: 'limit=15' }, { name: 'Limit: 20', search: 'limit=20' }];
-
 
 
 const Breeds = () => {
@@ -15,35 +13,44 @@ const Breeds = () => {
     const [allBreeds, setAllBreeds] = useState([]);
     const [open, setOpen] = useState(false);
     const [openLimit, setOpenLimit] = useState(false);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState('All breeds');
     const [selectedLimit, setSelectedLimit] = useState({ name: 'Limit: 5', search: 'limit=5' });
+    const [obj, setObj] = useState([{ name: 'All breeds', id: '' }]);
+    const [order, setOrder] = useState('order=ASC');
+
+    const greedRowCount = selectedLimit.name.replace(/\D/g, '') * 0.6;
 
     useEffect(() => {
-        fetch(`https://api.thecatapi.com/v1/images/search?${selectedLimit.search}`, {
+        fetch(`https://api.thecatapi.com/v1/breeds?${selectedLimit.search}&${order}`, {
             headers: {
                 'x-api-key': api_key
             }
         })
             .then((response) => response.json())
-            .then((data) => setAllBreeds(data));
-    }, [selectedLimit]);
+            .then((data) => {
+                console.log(data);
+                if (order === 'order=DESC') {
+                    data = data.reverse();
+                };
+                setAllBreeds(data);
+                data = data.reduce((accum, item) => {
+                    accum.push({ name: `${item.name}`, id: `${item.id}`, key: `${item.reference_image_id}` });
+                    return accum;
+                }, [])
+                setObj(data);
+            });
+    }, [selectedLimit, order]);
 
-    const selectLi = (i) => {
-        setSelected(i);
+    const selectAndNavigate = (name, id) => {
+        setSelected(name);
         setOpen(false);
+        navigate(id);
     }
 
-    const selectLimit = (item) => {
-        setSelectedLimit(item);
+    const selectLimit = (name) => {
+        setSelectedLimit(name);
         setOpenLimit(false);
     }
-
-    const idBreed = (item) => {
-        navigate(item.reference_image_id);
-    }
-
-    console.log(allBreeds);
-    console.log(selectedLimit);
 
     return (
         <div className="Breeds">
@@ -59,14 +66,14 @@ const Breeds = () => {
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>breeds</div>
                     <button name="breeds" className='breeds-select' onClick={() => setOpen(!open)}>
-                        <span>{breeds[selected]}</span>
+                        <span>{selected}</span>
                         <img src="./images/breeds/arrow-down.svg" alt="arrow" />
                     </button>
                     {
                         open && (
                             <div id="popup-breeds">
                                 <ul>
-                                    {breeds.map((item, i) => <li onClick={() => selectLi(i)} key={item}>{item}</li>)}
+                                    {obj.map((item) => <li onClick={() => selectAndNavigate(item.name, item.id)} key={item.reference_image_id}>{item.name}</li>)}
                                 </ul>
                             </div>
                         )
@@ -82,17 +89,15 @@ const Breeds = () => {
                             </ul>
                         </div>
                     )}
-                    <button className="breeds-sort"><img src="./images/breeds/z-a.svg" alt="z-a" /></button>
-                    <button className="breeds-sort"><img src="./images/breeds/a-z.svg" alt="a-z" /></button>
+                    <button className="breeds-sort" onClick={() => setOrder('order=DESC')}><img src="./images/breeds/z-a.svg" alt="z-a" /></button>
+                    <button className="breeds-sort" onClick={() => setOrder('order=ASC')}><img src="./images/breeds/a-z.svg" alt="a-z" /></button>
                 </div>
-                <div className="container-grid">
-                    {allBreeds.map((item, index) => <div onClick={() => idBreed(item)} key={item.id} style={{ background: `url(${item.url}) 0% 0% / cover` }} className={`item grid-${index + 1}`}></div>)}
-                </div>
+                <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
+                    {allBreeds.map((item, index) => <div key={item.reference_image_id} style={{ background: `url(${item.image.url}) 0% 0% / cover` }} className={`item grid-${index + 1}`}></div>)}
             </div>
         </div>
+        </div >
     );
 }
-
-// style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
 
 export default Breeds;
