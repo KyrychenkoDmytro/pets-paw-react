@@ -73,7 +73,10 @@ const Breeds = () => {
                         open && (
                             <div id="popup-breeds">
                                 <ul>
-                                    {obj.map((item) => <li onClick={() => selectAndNavigate(item.name, item.id)} key={item.reference_image_id}>{item.name}</li>)}
+                                    {obj.map((item) =>
+                                        <li onClick={() => selectAndNavigate(item.name, item.id)} key={item.reference_image_id}>
+                                            {item.name}
+                                        </li>)}
                                 </ul>
                             </div>
                         )
@@ -89,13 +92,25 @@ const Breeds = () => {
                             </ul>
                         </div>
                     )}
-                    <button className="breeds-sort" onClick={() => setOrder('order=DESC')}><img src="./images/breeds/z-a.svg" alt="z-a" /></button>
-                    <button className="breeds-sort" onClick={() => setOrder('order=ASC')}><img src="./images/breeds/a-z.svg" alt="a-z" /></button>
+                    <button className="breeds-sort" onClick={() => setOrder('order=DESC')}>
+                        <img src="./images/breeds/z-a.svg" alt="z-a" />
+                    </button>
+                    <button className="breeds-sort" onClick={() => setOrder('order=ASC')}>
+                        <img src="./images/breeds/a-z.svg" alt="a-z" />
+                    </button>
                 </div>
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
-                    {allBreeds.map((item, index) => <div key={item.reference_image_id} style={{ background: `url(${item.image.url}) 0% 0% / cover` }} className={`item grid-${index + 1}`}></div>)}
+                    {allBreeds.map((item, index) =>
+                        <div 
+                            key={item.reference_image_id}
+                            style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
+                            className={`item grid-${index + 1}`}>
+                            <div className='grid-hover'>
+                                <div>{item.name}</div>
+                            </div>
+                        </div>)}
+                </div>
             </div>
-        </div>
         </div >
     );
 }
