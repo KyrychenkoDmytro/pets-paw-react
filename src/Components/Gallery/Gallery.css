@@ -171,12 +171,41 @@
 
 .Gallery .choice-wrapper .container-grid {
     height: 490px;
-    overflow: hidden;
+    overflow: auto;
     margin-top: 20px;
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(8, 140px);
+}
+
+.Gallery .choice-wrapper .container-grid .item .grid-hover {
+    display: none;
+}
+
+.Gallery .choice-wrapper .container-grid .item:hover .grid-hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    height: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(185, 93, 116, 0.5);
+}
+
+.Gallery .choice-wrapper .container-grid .item .grid-hover div {
+display: none;
+}
+
+.Gallery .choice-wrapper .container-grid .item:hover .grid-hover:hover button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
 }
 
 .Gallery .choice-wrapper .container-grid .item {
