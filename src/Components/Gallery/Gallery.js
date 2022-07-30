@@ -1,9 +1,10 @@
 import './Gallery.css';
+import SearchPanel from '../SearchPanel/SearchPanel'
 
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const api_key = "DEMO_API_KEY";
+const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 const Gallery = () => {
     const [listBreeds, setListBreeds] = useState([{ name: 'none', id: '' }]);
@@ -47,13 +48,7 @@ const Gallery = () => {
 
     return (
         <div className="Gallery">
-            <input type="text" placeholder='Search for breeds by name' />
-            <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
-            <nav>
-                <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>
-                <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
-                <NavLink to="/dislikes"><img src="./images/voting/dislike.svg" alt="dislike" /></NavLink>
-            </nav>
+            <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>

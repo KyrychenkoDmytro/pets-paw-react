@@ -1,16 +1,12 @@
 import './Like.css';
-import { Link, NavLink } from 'react-router-dom';
+import SearchPanel from '../SearchPanel/SearchPanel';
+
+import { Link } from 'react-router-dom';
 
 const Like = () => {
     return (
         <div className="Like">
-            <input type="text" placeholder='Search for breeds by name' />
-            <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
-            <nav>
-                <NavLink to="/likes"></NavLink>
-                <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
-                <NavLink to="/dislikes"><img src="./images/voting/dislike.svg" alt="dislike" /></NavLink>
-            </nav>
+            <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>

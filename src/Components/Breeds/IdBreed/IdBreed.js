@@ -1,11 +1,12 @@
 import './IdBreed.css';
+import SearchPanel from '../../SearchPanel/SearchPanel';
 import Breed from './Breed/Breed';
 
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const IdBreed = () => {
-    const api_key = "DEMO_API_KEY";
+    const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
     let { breedsId } = useParams();
 
@@ -31,17 +32,11 @@ const IdBreed = () => {
                 setWeight(data[0].weight.imperial);
             });
     }, [breedsId]);
-    console.log(breed);
+    
     return (
 
         <div className="IdBreed">
-            <input type="text" placeholder='Search for breeds by name' />
-            <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
-            <nav>
-                <NavLink to="/likes"><img src="../images/voting/like.svg" alt="like" /></NavLink>
-                <NavLink to="/favourites"><img src="../images/voting/favourites.svg" alt="favourites" /></NavLink>
-                <NavLink to="/dislikes"><img src="../images/voting/dislike.svg" alt="dislike" /></NavLink>
-            </nav>
+           <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/breeds"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>

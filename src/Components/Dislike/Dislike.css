@@ -7,7 +7,11 @@
 .Dislike .active {
     background-color: #FF868E !important;
     color: #fff !important;
-    background: url(../../../public/images/voting/dislike-white.svg) no-repeat center center;
+    background: url(../../../public/images/voting/dislike-white.svg) center center no-repeat;
+}
+
+.Dislike .active img {
+    display: none;
 }
 
 .Dislike input {

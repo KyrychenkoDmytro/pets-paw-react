@@ -1,8 +1,10 @@
 import './Breeds.css';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import SearchPanel from '../SearchPanel/SearchPanel';
+
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const api_key = "DEMO_API_KEY";
+const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 const limits = [{ name: 'Limit: 5', search: 'limit=5' }, { name: 'Limit: 10', search: 'limit=10' }, { name: 'Limit: 15', search: 'limit=15' }, { name: 'Limit: 20', search: 'limit=20' }];
 
@@ -54,13 +56,7 @@ const Breeds = () => {
 
     return (
         <div className="Breeds">
-            <input type="text" placeholder='Search for breeds by name' />
-            <div className="btn-search"><img src="../images/voting/search.svg" alt="search" /></div>
-            <nav>
-                <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>
-                <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
-                <NavLink to="/dislikes"><img src="./images/voting/dislike.svg" alt="dislike" /></NavLink>
-            </nav>
+            <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>

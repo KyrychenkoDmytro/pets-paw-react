@@ -7,58 +7,11 @@
 .Like .active {
     background-color: #FF868E !important;
     color: #fff !important;
-    background: url(../../../public/images/voting/like-white.svg) no-repeat center center;
+    background: url(../../../public/images/voting/like-white.svg) center center no-repeat;
 }
 
-.Like input {
-    display: block;
-    width: 470px;
-    height: 60px;
-    background-color: #fff;
-    border-radius: 20px;
-    border: none;
-    padding: 15px 20px;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 30px;
-}
-
-.Like .btn-search {
-    position: absolute;
-    display: block;
-    height: 40px;
-    width: 40px;
-    padding: 10px;
-    background: #FBE0DC;
-    border-radius: 10px;
-    top: 10px;
-    left: 410px;
-}
-
-.Like nav a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    width: 60px;
-    background-color: #FFFFFF;
-    border-radius: 20px;
-    position: absolute;
-}
-
-.Like nav a:first-child {
-    top: 0px;
-    left: 480px;
-}
-
-.Like nav a:nth-child(2) {
-    top: 0px;
-    left: 550px;
-}
-
-.Like nav a:last-child {
-    top: 0px;
-    left: 620px;
+.Like .active img {
+    display: none;
 }
 
 .Like .choice-wrapper {
