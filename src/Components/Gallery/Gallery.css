@@ -135,9 +135,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: auto;
     height: 100%;
-    padding: 10px;
     border-radius: 20px;
     background-color: rgba(185, 93, 116, 0.5);
 }

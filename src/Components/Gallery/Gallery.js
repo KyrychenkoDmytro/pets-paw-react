@@ -46,6 +46,37 @@ const Gallery = () => {
             });
     }, [selectedLimit, order, breed, mimeTypes]);
 
+    // useEffect(() => {
+    //     fetch('https://api.thecatapi.com/v1/favourites', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'x-api-key': api_key
+    //         },
+    //         body: JSON.stringify({
+    //             "image_id": "sxIXJax6h",
+    //             "sub_id": "my-sub-id-123321"
+    //         })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => console.log(data))
+    // }, [])
+    // add to favourites
+const addToFovourites = (id) => {
+    fetch('https://api.thecatapi.com/v1/favourites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': api_key
+            },
+            body: JSON.stringify({
+                "image_id": `${id}`,
+                "sub_id": "my-sub-id-123321"
+            })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+}
     return (
         <div className="Gallery">
             <SearchPanel />
@@ -87,7 +118,7 @@ const Gallery = () => {
                             style={{ background: `url(${item.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>
                             <div className='grid-hover'>
-                                <button><img src="./images/voting/favourites-small.svg" alt="favourites" /></button>
+                                <button onClick={()=>addToFovourites(item.id)}><img src="./images/voting/favourites-small.svg" alt="favourites" /></button>
                             </div>
                         </div>)}
                 </div>

@@ -2,12 +2,31 @@ import './Voting.css';
 import SearchPanel from '../SearchPanel/SearchPanel';
 
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
+const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 const Voting = () => {
+
+    useEffect(() => {
+        fetch('https://api.thecatapi.com/v1/favourites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': api_key
+            },
+            body: JSON.stringify({
+                "image_id": "sxIXJax6h",
+                "sub_id": "your-usesdasda"
+            })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+    }, [])
+
     return (
         <div className="Voting">
-        <SearchPanel />
+            <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
