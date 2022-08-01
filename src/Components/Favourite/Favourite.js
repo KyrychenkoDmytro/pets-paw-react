@@ -27,6 +27,18 @@ const Favourite = () => {
             })
     }, [])
 
+    const deleteFavourite = (id) => {
+        fetch(`https://api.thecatapi.com/v1/favourites/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': api_key
+            }
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+    }
+   
     return (
         <div className="Favourite">
             <SearchPanel />
@@ -37,7 +49,7 @@ const Favourite = () => {
                 </div>
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allBreeds.map((item, index) =>
-                        <div
+                        <div onClick={() => deleteFavourite(item.id)}
                             key={item.id}
                             style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>

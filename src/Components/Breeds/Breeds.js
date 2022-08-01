@@ -70,7 +70,7 @@ const Breeds = () => {
                             <div id="popup-breeds">
                                 <ul>
                                     {obj.map((item) =>
-                                        <li onClick={() => selectAndNavigate(item.name, item.id)} key={item.reference_image_id}>
+                                        <li onClick={() => selectAndNavigate(item.name, item.id)} key={item.name}>
                                             {item.name}
                                         </li>)}
                                 </ul>

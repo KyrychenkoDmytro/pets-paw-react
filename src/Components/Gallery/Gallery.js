@@ -15,6 +15,7 @@ const Gallery = () => {
     const [mimeTypes, setMimeTypes] = useState('');
 
     const greedRowCount = selectedLimit.replace(/\D/g, '') * 0.6;
+    const addFavourites = {};
 
     useEffect(() => {
         fetch('https://api.thecatapi.com/v1/breeds', {
@@ -46,37 +47,47 @@ const Gallery = () => {
             });
     }, [selectedLimit, order, breed, mimeTypes]);
 
-    // useEffect(() => {
-    //     fetch('https://api.thecatapi.com/v1/favourites', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'x-api-key': api_key
-    //         },
-    //         body: JSON.stringify({
-    //             "image_id": "sxIXJax6h",
-    //             "sub_id": "my-sub-id-123321"
-    //         })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => console.log(data))
-    // }, [])
-    // add to favourites
-const addToFovourites = (id) => {
-    fetch('https://api.thecatapi.com/v1/favourites', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            },
-            body: JSON.stringify({
-                "image_id": `${id}`,
-                "sub_id": "my-sub-id-123321"
+
+    const addToFovourites = (e, id) => {
+        if (addFavourites[id]) {
+            e.target.classList.remove('active');
+
+            fetch(`https://api.thecatapi.com/v1/favourites/${addFavourites[id]}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': api_key
+                }
             })
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-}
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    delete addFavourites[id];
+                    console.log(addFavourites);
+                })
+        } else {
+            e.target.classList.add('active');
+
+            fetch('https://api.thecatapi.com/v1/favourites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': api_key
+                },
+                body: JSON.stringify({
+                    "image_id": `${id}`,
+                    "sub_id": "my-sub-id-123321"
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.message === 'SUCCESS') addFavourites[id] = data.id;
+                    console.log(addFavourites);
+                })
+        }
+
+    }
     return (
         <div className="Gallery">
             <SearchPanel />
@@ -118,7 +129,7 @@ const addToFovourites = (id) => {
                             style={{ background: `url(${item.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>
                             <div className='grid-hover'>
-                                <button onClick={()=>addToFovourites(item.id)}><img src="./images/voting/favourites-small.svg" alt="favourites" /></button>
+                                <button className={addFavourites[item.id] ? 'active' : ''} onClick={(e) => addToFovourites(e, item.id)}></button>
                             </div>
                         </div>)}
                 </div>
@@ -126,6 +137,5 @@ const addToFovourites = (id) => {
         </div>
     );
 }
-
 
 export default Gallery;

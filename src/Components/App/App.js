@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
 import Home from '../Home/Home';
 import Nav from '../Nav/Nav';
@@ -12,8 +14,34 @@ import Like from '../Like/Like';
 import Dislike from '../Dislike/Dislike';
 import Favourite from '../Favourite/Favourite';
 
+import { myFavourites } from '../../store/slices/search/searchPanelSlice';
+
+const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch('https://api.thecatapi.com/v1/favourites', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': api_key
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        data = data.filter((item) => item.image.url !== undefined);
+        // console.log(data);
+        data = data.reduce((accum, item) => {
+          accum[item.image_id] = item.id;
+          return accum;
+        }, {})
+        // console.log(data);
+        dispatch(myFavourites(data));
+      })
+  }, [])
 
   return (
     <div className="App">
