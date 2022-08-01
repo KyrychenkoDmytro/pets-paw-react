@@ -51,12 +51,11 @@
     position: relative;
     width: 640px;
     height: 360px;
-    background: url(../../../public/images/voting/cat-big.jpg);
     border-radius: 20px;
     margin-top: 20px;
 }
 
-.Voting .choice-wrapper .show-cat div {
+.Voting .choice-wrapper .show-cat button {
     position: absolute;
     width: 80px;
     height: 80px;
@@ -65,7 +64,7 @@
     border: 4px solid #FFFFFF;
 }
 
-.Voting .choice-wrapper .show-cat div:first-child {
+.Voting .choice-wrapper .show-cat button:first-child {
     left: 200px;
     background: #97EAB9;
     border-radius: 20px 0 0 20px;
@@ -73,13 +72,13 @@
     padding: 21px 23px;
 }
 
-.Voting .choice-wrapper .show-cat div:nth-child(2) {
+.Voting .choice-wrapper .show-cat button:nth-child(2) {
     left: 280px;
     background: #FF868E;
     padding: 23px 21px;
 }
 
-.Voting .choice-wrapper .show-cat div:last-child {
+.Voting .choice-wrapper .show-cat button:last-child {
     left: 360px;
     border-radius: 0 20px 20px 0;
     background: #FFD280;

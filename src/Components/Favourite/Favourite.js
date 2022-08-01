@@ -12,7 +12,7 @@ const Favourite = () => {
     const greedRowCount = Math.ceil(allBreeds.length * 0.6) >= 3 ? Math.ceil(allBreeds.length * 0.6) : 3;
     useEffect(() => {
         fetch('https://api.thecatapi.com/v1/favourites', {
-            method: 'GET',
+            // method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'x-api-key': api_key

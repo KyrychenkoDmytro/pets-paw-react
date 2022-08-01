@@ -57,54 +57,25 @@
     letter-spacing: 2px;
 }
 
-.Like .choice-wrapper .show-cat {
-    position: relative;
-    width: 640px;
-    height: 360px;
-    background: url(../../../public/images/voting/cat-big.jpg);
-    border-radius: 20px;
-    margin-top: 20px;
-}
-
-.Like .choice-wrapper .show-cat div {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    /* padding: 25px; */
-    bottom: -40px;
-    border: 4px solid #FFFFFF;
-}
-
-.Like .choice-wrapper .show-cat div:first-child {
-    left: 200px;
-    background: #97EAB9;
-    border-radius: 20px 0 0 20px;
-    border-right: 0;
-    padding: 21px 23px;
-}
-
-.Like .choice-wrapper .show-cat div:nth-child(2) {
-    left: 280px;
-    background: #FF868E;
-    padding: 23px 21px;
-}
-
-.Like .choice-wrapper .show-cat div:last-child {
-    left: 360px;
-    border-radius: 0 20px 20px 0;
-    background: #FFD280;
-    border-left: 0;
-    padding: 21px 23px;
-}
 
 .Like .choice-wrapper .container-grid {
-    overflow: hidden;
+    height: 620px;
+    overflow: auto;
     margin-top: 20px;
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(2, 140px);
 }
+
+/* .Like .choice-wrapper .container-grid .no-items {
+    background-color: #E5E5E5;
+    height: 60px;
+    width: 640px;
+    line-height: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    color: #8C8C8C;
+}     */
 
 .Like .choice-wrapper .container-grid .item {
     background: #C4C4C4;
@@ -112,10 +83,39 @@
 }
 
 .Like .choice-wrapper .container-grid .grid-1 {
-    background-image: url(../../../public/images/all-cats/image-1.jpg);
     grid-row: 1/3;
 }
 
-.Like .choice-wrapper .container-grid .grid-2 {
-    background-image: url(../../../public/images/all-cats/image-2.jpg);
+.Like .choice-wrapper .container-grid .grid-4 {
+    grid-row: 2/4;
+    grid-column: 2/4;
+}
+
+
+.Like .choice-wrapper .container-grid .grid-8 {
+    grid-row: 4/6;
+    grid-column: 3;
+}
+
+.Like .choice-wrapper .container-grid .grid-9 {
+    grid-row: 5/7;
+    grid-column: 1/3;
+}
+
+.Like .choice-wrapper .container-grid .grid-11 {
+    grid-row: 7/9;
+}
+
+.Like .choice-wrapper .container-grid .grid-14 {
+    grid-row: 8/10;
+    grid-column: 2/4;
+}
+
+.Like .choice-wrapper .container-grid .grid-16 {
+    grid-row: 10/12;
+}
+
+.Like .choice-wrapper .container-grid .grid-19 {
+    grid-row: 11/13;
+    grid-column: 2/4;
 }
