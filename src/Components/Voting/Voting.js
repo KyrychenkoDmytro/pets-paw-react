@@ -1,5 +1,6 @@
 import './Voting.css';
 import SearchPanel from '../SearchPanel/SearchPanel';
+import VotingInfo from './VotingInfo/VotingInfo';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -11,19 +12,27 @@ const Voting = () => {
     let timeIsNow = `${date.getHours()}:${date.getMinutes()}`;
 
     const [image, setImage] = useState([]);
-    const [likeInfo, setLikeInfo] = useState('');
+    const [arr, setArr] = useState([]);
 
+    if (arr.length > 4) {
+        arr.reverse();
+        arr.length = 4;
+        arr.reverse();
+        setArr(arr);
+    }
+    // console.log(arr);
 
     const newImage = () => {
         fetch('https://api.thecatapi.com/v1/images/search')
             .then(response => response.json())
             .then(data => {
+                data = data.filter(item => item.id !== undefined)
                 setImage(data);
                 console.log(data);
             })
     }
     useEffect(() => {
-        newImage()
+        newImage();
     }, [])
 
     const addToLikes = (id) => {
@@ -41,8 +50,12 @@ const Voting = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                if (data.message === 'SUCCESS') newImage();
+
+                if (data.message === 'SUCCESS') {
+                    newImage();
+                    setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: './images/voting/like-small.svg' }]);
+                    console.log(data);
+                }
             })
     }
 
@@ -60,8 +73,11 @@ const Voting = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                if (data.message === 'SUCCESS') newImage();
+                if (data.message === 'SUCCESS') {
+                    newImage();
+                    setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Favourites', srcImage: './images/voting/favourites-small.svg' }]);
+                    console.log(data);
+                }
             })
     }
 
@@ -81,7 +97,11 @@ const Voting = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                if (data.message === 'SUCCESS') newImage();
+                if (data.message === 'SUCCESS') {
+                    newImage();
+                    setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Dislikes', srcImage: './images/voting/dislike-small.svg' }]);
+                    console.log(data);
+                }
             })
     }
 
@@ -104,26 +124,7 @@ const Voting = () => {
                     </div>
                 )}
                 <div className="users-action">
-                    <div className="user">
-                        <div>22:35</div>
-                        <p>Image ID: <span>fQSunHvl8</span> was added to Favourites</p>
-                        <img src="./images/voting/favourites-small.svg" alt="favourites" />
-                    </div>
-                    <div className="user">
-                        <div>22:35</div>
-                        <p>Image ID: <span>HJd0XecNX</span> was added to Likes</p>
-                        <img src="./images/voting/like-small.svg" alt="like" />
-                    </div>
-                    <div className="user">
-                        <div>22:35</div>
-                        <p>Image ID: <span>BbMFS3bU</span> was added to Dislikes</p>
-                        <img src="./images/voting/dislike-small.svg" alt="dislike" />
-                    </div>
-                    <div className="user">
-                        <div>22:35</div>
-                        <p>Image ID: <span>fQSunHvl8</span> was added to Favourites</p>
-                        <img src="./images/voting/favourites-small.svg" alt="favourites" />
-                    </div>
+                    {arr.map((item) => <VotingInfo key={item.imageId} time={item.time} imageId={item.imageId} blockName={item.blockName} srcImage={item.srcImage} />)}
                 </div>
             </div>
         </div>

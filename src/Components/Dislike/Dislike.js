@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 const Dislike = () => {
-    
+
     const [allDisliked, setAllDisliked] = useState([]);
     const greedRowCount = Math.ceil(allDisliked.length * 0.6) >= 3 ? Math.ceil(allDisliked.length * 0.6) : 3;
 
@@ -20,11 +20,23 @@ const Dislike = () => {
         })
             .then(response => response.json())
             .then(data => {
-                data = data.filter((item)=> item.value === 0)
+                data = data.filter((item) => item.value === 0)
                 setAllDisliked(data);
                 console.log(data);
             })
     }, [])
+
+    const deleteImage = (id) => {
+        fetch(`https://api.thecatapi.com/v1/votes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': api_key
+            }
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+    }
 
     return (
         <div className="Dislike">
@@ -37,6 +49,7 @@ const Dislike = () => {
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allDisliked.map((item, index) =>
                         <div
+                            onClick={() => deleteImage(item.id)}
                             key={item.id}
                             style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>

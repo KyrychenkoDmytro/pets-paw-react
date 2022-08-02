@@ -23,6 +23,19 @@ const Like = () => {
                 console.log(data);
             })
     }, [])
+
+    const deleteImage = (id) => {
+        fetch(`https://api.thecatapi.com/v1/votes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': api_key
+            }
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+    }
+
     return (
         <div div className="Like" >
             <SearchPanel />
@@ -34,6 +47,7 @@ const Like = () => {
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allLiked.map((item, index) =>
                         <div
+                            onClick={() => deleteImage(item.id)}
                             key={item.id}
                             style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>
