@@ -3,6 +3,7 @@ import SearchPanel from '../SearchPanel/SearchPanel'
 
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Upload from '../Upload/Upload';
 
 const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
@@ -13,6 +14,8 @@ const Gallery = () => {
     const [selectedLimit, setSelectedLimit] = useState('limit=5');
     const [order, setOrder] = useState('order=RANDOM');
     const [mimeTypes, setMimeTypes] = useState('');
+    const [openUpload, setOpenUpload] = useState(false);
+
 
     const greedRowCount = selectedLimit.replace(/\D/g, '') * 0.6;
     const addFavourites = {};
@@ -47,6 +50,19 @@ const Gallery = () => {
             });
     }, [selectedLimit, order, breed, mimeTypes]);
 
+const loadNewItems = () => {
+    fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breed}&${selectedLimit}&${order}&${mimeTypes}`, {
+        headers: {
+            'x-api-key': api_key
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.length === 0) console.log('empty');
+            console.log(data);
+            setAllImages(data);
+        });
+}
 
     const addToFovourites = (e, id) => {
         if (addFavourites[id]) {
@@ -95,7 +111,7 @@ const Gallery = () => {
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>gallery</div>
-                    <button className='gallery-upload'><img className="upload-grid" src="./images/gallery/upload.svg" alt="upload" />upload</button>
+                    <button className='gallery-upload' onClick={()=> setOpenUpload(true)}>upload</button>
                 </div>
                 <div className='select-wrapper'>
                     <label>
@@ -120,7 +136,7 @@ const Gallery = () => {
                         <option value="limit=15">15 items per page</option>
                         <option value="limit=20">20 items per page</option>
                     </select>
-                    <button className="gallery-update" onClick={() => window.location.reload()}><img src="./images/gallery/update.svg" alt="update" /></button>
+                    <button className="gallery-update" onClick={() => loadNewItems()}><img src="./images/gallery/update.svg" alt="update" /></button>
                 </div>
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allImages.map((item, index) =>
@@ -134,6 +150,7 @@ const Gallery = () => {
                         </div>)}
                 </div>
             </div>
+            <Upload openUpload={openUpload} setOpenUpload={setOpenUpload}/>
         </div>
     );
 }

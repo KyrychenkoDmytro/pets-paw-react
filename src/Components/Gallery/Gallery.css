@@ -65,6 +65,10 @@
     color: #FF868E;
 }
 
+.Gallery .choice-wrapper .gallery-upload::before {
+    content: url(../../../public/images/gallery/upload.svg);
+}
+
 .Gallery .choice-wrapper .select-wrapper {
     display: flex;
     justify-content: space-between;
