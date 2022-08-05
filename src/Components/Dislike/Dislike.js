@@ -9,6 +9,7 @@ const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 const Dislike = () => {
 
     const [allDisliked, setAllDisliked] = useState([]);
+    const [noItemFaound, setNoItemFound] = useState(false);
     const greedRowCount = Math.ceil(allDisliked.length * 0.6) >= 3 ? Math.ceil(allDisliked.length * 0.6) : 3;
 
     useEffect(() => {
@@ -20,9 +21,14 @@ const Dislike = () => {
         })
             .then(response => response.json())
             .then(data => {
-                data = data.filter((item) => item.value === 0)
-                setAllDisliked(data);
-                console.log(data);
+                data = data.filter((item) => item.value === 0);
+                if (data.length === 0) {
+                    setNoItemFound(true);
+                } else {
+                    setNoItemFound(false);
+                    setAllDisliked(data);
+                    console.log(data);
+                }
             })
     }, [])
 
@@ -46,6 +52,7 @@ const Dislike = () => {
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>Dislikes</div>
                 </div>
+                {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allDisliked.map((item, index) =>
                         <div

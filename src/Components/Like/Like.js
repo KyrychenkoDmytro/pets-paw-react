@@ -7,6 +7,7 @@ const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 const Like = () => {
     const [allLiked, setAllLiked] = useState([]);
+    const [noItemFaound, setNoItemFound] = useState(false);
     const greedRowCount = Math.ceil(allLiked.length * 0.6) >= 3 ? Math.ceil(allLiked.length * 0.6) : 3;
 
     useEffect(() => {
@@ -19,8 +20,13 @@ const Like = () => {
             .then(response => response.json())
             .then(data => {
                 data = data.filter((item) => item.value === 1)
-                setAllLiked(data);
-                console.log(data);
+                if (data.length === 0) {
+                    setNoItemFound(true);
+                } else {
+                    setNoItemFound(false);
+                    setAllLiked(data);
+                    console.log(data);
+                }
             })
     }, [])
 
@@ -44,6 +50,7 @@ const Like = () => {
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>likes</div>
                 </div>
+                {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allLiked.map((item, index) =>
                         <div

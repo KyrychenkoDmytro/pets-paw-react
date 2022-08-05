@@ -8,11 +8,12 @@ const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 
 const Favourite = () => {
-    const [allBreeds, setAllBreeds] = useState([]);
-    const greedRowCount = Math.ceil(allBreeds.length * 0.6) >= 3 ? Math.ceil(allBreeds.length * 0.6) : 3;
+    const [allFavourites, setAllFavourites] = useState([]);
+    const [noItemFaound, setNoItemFound] = useState(false);
+    const greedRowCount = Math.ceil(allFavourites.length * 0.6) >= 3 ? Math.ceil(allFavourites.length * 0.6) : 3;
+
     useEffect(() => {
         fetch('https://api.thecatapi.com/v1/favourites', {
-            // method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'x-api-key': api_key
@@ -22,8 +23,13 @@ const Favourite = () => {
             .then(data => {
                 console.log(data);
                 data = data.filter((item) => item.image.url !== undefined);
-                console.log(data);
-                setAllBreeds(data);
+                if (data.length === 0) {
+                    setNoItemFound(true);
+                } else {
+                    setNoItemFound(false);
+                    setAllFavourites(data);
+                    console.log(data);
+                }
             })
     }, [])
 
@@ -47,8 +53,9 @@ const Favourite = () => {
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>favourites</div>
                 </div>
+                {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
-                    {allBreeds.map((item, index) =>
+                    {allFavourites.map((item, index) =>
                         <div onClick={() => deleteFavourite(item.id)}
                             key={item.id}
                             style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
