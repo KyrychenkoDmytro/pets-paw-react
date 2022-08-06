@@ -1,4 +1,4 @@
-import './Search.css';
+import './Search.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 
 import { Link } from 'react-router-dom';

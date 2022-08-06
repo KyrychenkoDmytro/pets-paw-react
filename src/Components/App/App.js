@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import './App.css';
+import './App.scss';
 import Home from '../Home/Home';
 import Nav from '../Nav/Nav';
 import Error from '../Error/Error';

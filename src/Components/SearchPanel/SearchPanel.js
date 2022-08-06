@@ -1,4 +1,4 @@
-import './SearchPanel.css';
+import './SearchPanel.scss';
 
 import { NavLink, Link } from 'react-router-dom';
 import { useRef, useState} from 'react';
@@ -15,14 +15,13 @@ const handleSearch = () => {
     let value = valueRef.current.value;
     valueRef.current.focus();
     dispatch(searchValue(value));
-    console.log(value);
     setClearValue('');
 }
 
     return (
         <div className="SearchPanel">
             <input type="text" placeholder='Search for breeds by name' ref={valueRef} value={clearValue} onChange={(e)=>setClearValue(e.target.value)} />
-            <Link to="/search" onClick={handleSearch}><button className="btn-search"><img src="../images/voting/search.svg" alt="search" /></button></Link>
+            <Link to="/search" onClick={handleSearch}><button className="SearchPanel__btn"></button></Link>
             <nav>
                 <NavLink to="/likes"><img src="/images/voting/like.svg" alt="like" /></NavLink>
                 <NavLink to="/favourites"><img src="/images/voting/favourites.svg" alt="favourites" /></NavLink>
@@ -31,5 +30,6 @@ const handleSearch = () => {
         </div>
     );
 }
+
 
 export default SearchPanel;

@@ -1,5 +1,6 @@
-import './Like.css';
+import './Like.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
+import GridItem from '../GridItem/GridItem';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -53,12 +54,13 @@ const Like = () => {
                 {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allLiked.map((item, index) =>
-                        <div
-                            onClick={() => deleteImage(item.id)}
+                        <GridItem
                             key={item.id}
-                            style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
-                            className={`item grid-${index + 1}`}>
-                        </div>)}
+                            url={item.image.url}
+                            index={index}
+                            deleteImage={() => deleteImage(item.id)}
+                        />
+                    )}
                 </div>
             </div>
         </div>

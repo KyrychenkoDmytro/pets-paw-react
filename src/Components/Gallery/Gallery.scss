@@ -1,0 +1,170 @@
+.Gallery {
+    width: 680px;
+    height: 840px;
+    position: relative;
+
+    .choice-wrapper {
+        overflow: hidden;
+        position: relative;
+        width: 680px;
+        height: 770px;
+        padding: 20px;
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 20px;
+
+        .flex-wrapper-back {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            a {
+                height: 40px;
+
+                .btn-back {
+                    height: 40px;
+                    width: 40px;
+                    padding: 10px 14px;
+                    background: #FBE0DC;
+                    border-radius: 10px;
+                }
+            }
+
+            .voting-lable {
+                height: 40px;
+                margin-left: 10px;
+                background: #FF868E;
+                border-radius: 10px;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 40px;
+                text-transform: uppercase;
+                text-align: center;
+                color: #fff;
+                padding: 0 30px;
+                letter-spacing: 2px;
+            }
+
+            .gallery-upload {
+                display: flex;
+                justify-content: space-between;
+                padding: 12px 30px;
+                margin-left: auto;
+                letter-spacing: 2px;
+                width: 140px;
+                height: 40px;
+                background: #FBE0DC;
+                border-radius: 10px;
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 500;
+                border: none;
+                color: #FF868E;
+
+                &::before {
+                    content: url(../../../public/images/gallery/upload.svg);
+                }
+            }
+        }
+
+        .select-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 640px;
+            height: 160px;
+            background: #F8F8F7;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+
+            .breeds-select {
+                display: flex;
+                width: 290px;
+                height: 40px;
+                background-color: #fff;
+                border-radius: 10px;
+                font-size: 16px;
+                line-height: 24;
+                padding: 8px 10px;
+                color: #1D1D1D;
+                border: none;
+                outline: none;
+
+                option {
+                    color: #8C8C8C;
+                }
+            }
+
+            .select-limit {
+                width: 240px;
+            }
+
+            .gallery-update {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+                background-color: #fff;
+                border-radius: 10px;
+                border: none;
+            }
+        }
+
+        .container-grid {
+            height: 490px;
+            overflow: auto;
+            margin-top: 20px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+
+            .item {
+                border-radius: 20px;
+
+                .grid-hover {
+                    display: none;
+
+                    div {
+                        display: none;
+                    }
+
+                    &:hover button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 40px;
+                        height: 40px;
+                        background-color: #fff;
+                        border-radius: 10px;
+                        border: none;
+                    }
+                }
+
+                &:hover .grid-hover {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    border-radius: 20px;
+                    background-color: rgba(185, 93, 116, 0.5);
+
+                    button::after {
+                        content: url('../../../public/images/voting/favourites-small.svg');
+                        width: 20px;
+                        height: 18px;
+                    }
+
+                    .active::after {
+                        display: block;
+                        content: url('../../../public/images/voting/favourite-active.png');
+                        width: 22px;
+                        height: 22px;
+                    }
+                }
+            }
+        }
+    }
+}

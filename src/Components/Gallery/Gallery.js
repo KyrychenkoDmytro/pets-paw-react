@@ -1,4 +1,4 @@
-import './Gallery.css';
+import './Gallery.scss';
 import SearchPanel from '../SearchPanel/SearchPanel'
 
 import { Link } from 'react-router-dom';
@@ -50,19 +50,19 @@ const Gallery = () => {
             });
     }, [selectedLimit, order, breed, mimeTypes]);
 
-const loadNewItems = () => {
-    fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breed}&${selectedLimit}&${order}&${mimeTypes}`, {
-        headers: {
-            'x-api-key': api_key
-        }
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.length === 0) console.log('empty');
-            console.log(data);
-            setAllImages(data);
-        });
-}
+    const loadNewItems = () => {
+        fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breed}&${selectedLimit}&${order}&${mimeTypes}`, {
+            headers: {
+                'x-api-key': api_key
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.length === 0) console.log('empty');
+                console.log(data);
+                setAllImages(data);
+            });
+    }
 
     const addToFovourites = (e, id) => {
         if (addFavourites[id]) {
@@ -111,26 +111,24 @@ const loadNewItems = () => {
                 <div className='flex-wrapper-back'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>gallery</div>
-                    <button className='gallery-upload' onClick={()=> setOpenUpload(true)}>upload</button>
+                    <button className='gallery-upload' onClick={() => setOpenUpload(true)}>upload</button>
                 </div>
                 <div className='select-wrapper'>
-                    <label>
-                        <select name="breeds" id="breeds-select" className='breeds-select' onChange={(e) => setOrder(e.target.value)}>
-                            <option value="order=RANDOM">Random</option>
-                            <option value="order=DESC">Desc</option>
-                            <option value="order=ASC">Asc</option>
-                        </select>
-                    </label>
-                    <select name="breeds" id="breeds-select" className='breeds-select' onChange={(e) => setMimeTypes(e.target.value)}>
+                    <select className='breeds-select' onChange={(e) => setOrder(e.target.value)}>
+                        <option value="order=RANDOM">Random</option>
+                        <option value="order=DESC">Desc</option>
+                        <option value="order=ASC">Asc</option>
+                    </select>
+                    <select className='breeds-select' onChange={(e) => setMimeTypes(e.target.value)}>
                         <option value="">All</option>
                         <option value="mime_types=jpg&mime_types=png">Static</option>
                         <option value="mime_types=gif">Animated</option>
                     </select>
-                    <select name="breeds" id="breeds-select" className='breeds-select' onChange={(e) => setBreed(e.target.value)}>
+                    <select className='breeds-select' onChange={(e) => setBreed(e.target.value)}>
                         <option value="">None</option>
                         {listBreeds.map((item) => <option value={item.id} key={item.key + item.id}>{item.name}</option>)}
                     </select>
-                    <select name="breeds" id="breeds-select-limit" className='breeds-select select-limit' onChange={(e) => setSelectedLimit(e.target.value)}>
+                    <select className='breeds-select select-limit' onChange={(e) => setSelectedLimit(e.target.value)}>
                         <option value="limit=5">5 items per page</option>
                         <option value="limit=10">10 items per page</option>
                         <option value="limit=15">15 items per page</option>
@@ -150,7 +148,7 @@ const loadNewItems = () => {
                         </div>)}
                 </div>
             </div>
-            <Upload openUpload={openUpload} setOpenUpload={setOpenUpload}/>
+            <Upload openUpload={openUpload} setOpenUpload={setOpenUpload} />
         </div>
     );
 }

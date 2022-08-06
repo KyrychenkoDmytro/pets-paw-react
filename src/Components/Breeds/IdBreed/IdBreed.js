@@ -1,4 +1,4 @@
-import './IdBreed.css';
+import './IdBreed.scss';
 import SearchPanel from '../../SearchPanel/SearchPanel';
 import Breed from './Breed/Breed';
 
@@ -9,6 +9,7 @@ const IdBreed = () => {
     const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
     let { breedsId } = useParams();
+    console.log(breedsId);
 
     const [breed, setBreed] = useState('');
     const [url, setUrl] = useState('');
@@ -32,18 +33,18 @@ const IdBreed = () => {
                 setWeight(data[0].weight.imperial);
             });
     }, [breedsId]);
-    
+
     return (
 
         <div className="IdBreed">
-           <SearchPanel />
+            <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/breeds"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>breeds</div>
                     <div className='show-id-breed'>{id}</div>
                 </div>
-                <Breed url={url} breed={breed} weight={weight}/>
+                <Breed url={url} breed={breed} weight={weight} />
             </div>
 
         </div>

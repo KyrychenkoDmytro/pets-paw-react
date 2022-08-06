@@ -1,0 +1,123 @@
+.Favourite {
+    width: 680px;
+    height: 840px;
+    position: relative;
+
+    .active {
+        background-color: #FF868E !important;
+        color: #fff !important;
+        background: url(../../../public/images/voting/favourites-white.svg) center center no-repeat;
+
+        img {
+            display: none;
+        }
+    }
+
+    .choice-wrapper {
+        position: relative;
+        width: 680px;
+        height: 770px;
+        padding: 20px;
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 20px;
+
+        .flex-wrapper-back {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            a {
+                height: 40px;
+
+                .btn-back {
+                    height: 40px;
+                    width: 40px;
+                    padding: 10px 14px;
+                    background: #FBE0DC;
+                    border-radius: 10px;
+                }
+            }
+
+            .voting-lable {
+                height: 40px;
+                margin-left: 10px;
+                background: #FF868E;
+                border-radius: 10px;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 40px;
+                text-transform: uppercase;
+                text-align: center;
+                color: #fff;
+                padding: 0 30px;
+                letter-spacing: 2px;
+            }
+        }
+
+        .no-items {
+            background-color: #E5E5E5;
+            height: 60px;
+            width: 640px;
+            margin-top: 20px;
+            line-height: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            color: #8C8C8C;
+        }
+
+        .container-grid {
+            height: 670px;
+            overflow: auto;
+            margin-top: 20px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+}
+
+// .Favourite .choice-wrapper .users-action {
+//     margin-top: 60px;
+// }
+
+// .Favourite .choice-wrapper .users-action .user {
+//     display: flex;
+//     width: 640px;
+//     height: 55px;
+//     background: #F8F8F7;
+//     border-radius: 10px;
+//     margin-top: 10px;
+//     padding: 10px;
+// }
+
+// .Favourite .choice-wrapper .users-action .user div {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 35px;
+//     width: 60px;
+//     background-color: #fff;
+//     margin-right: 30px;
+//     font-size: 18px;
+// }
+
+// .Favourite .choice-wrapper .users-action .user p {
+//     margin: 0;
+//     height: 35px;
+//     line-height: 35px;
+//     font-weight: 500;
+//     font-size: 18px;
+//     color: #8C8C8C;
+// }
+
+// .Favourite .choice-wrapper .users-action .user p span {
+//     color: #1D1D1D;
+// }
+
+// .Favourite .choice-wrapper .users-action .user img {
+//     display: block;
+//     width: 20px;
+//     height: 20px;
+//     margin: auto 0 auto auto;
+// }

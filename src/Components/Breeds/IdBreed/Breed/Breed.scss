@@ -1,0 +1,85 @@
+.Breed {
+    .show-cat {
+        position: relative;
+        width: 640px;
+        height: 360px;
+        border-radius: 20px;
+        margin-top: 20px;
+        .wrapper-slides {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            bottom: -15px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 90px;
+            height: 30px;
+            background-color: #fff;
+            background-repeat: 20px;
+            border-radius: 20px;
+            .slide-id {
+                width: 10px;
+                height: 10px;
+                background: #FBE0DC;
+                border-radius: 10px;
+                &:nth-child(1) {
+                    background: #FF868E;
+                }
+            }
+        }
+    }
+    .id-breed-name {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: inline-block;
+        margin: 20px auto 0;
+        padding: 0 30px;
+        height: 62px;
+        background-color: #fff;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 62px;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .breed-info {
+        position: relative;
+        width: 640px;
+        height: 204px;
+        top: -40px;
+        border: 2px solid #FBE0DC;
+        border-radius: 20px;
+        padding: 0 30px;
+        h2 {
+            font-weight: 500;
+            font-size: 22px;
+            color: #8C8C8C;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .about-breed {
+            display: flex;
+            justify-content: space-between;
+            .about-breed-left {
+                width: 270px;
+            }
+            .about-breed-right {
+                width: 270px;
+            }
+            p {
+                margin: 0;
+                color: #1D1D1D;
+                font-size: 18px;
+                font-weight: 500;
+            }
+            span {
+                font-weight: 400;
+                font-size: 18px;
+                color: #8C8C8C;
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import './Breeds.css';
+import './Breeds.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -57,11 +57,11 @@ const Breeds = () => {
     return (
         <div className="Breeds">
             <SearchPanel />
-            <div className='choice-wrapper'>
-                <div className='flex-wrapper-back'>
+            <div className='Breeds__choice'>
+                <div className='Breeds__settings'>
                     <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
-                    <div className='voting-lable'>breeds</div>
-                    <button name="breeds" className='breeds-select' onClick={() => setOpen(!open)}>
+                    <div className='Breeds__settings-lable'>breeds</div>
+                    <button name="breeds" className='Breeds__settings-select' onClick={() => setOpen(!open)}>
                         <span>{selected}</span>
                         <img src="./images/breeds/arrow-down.svg" alt="arrow" />
                     </button>
@@ -77,7 +77,7 @@ const Breeds = () => {
                             </div>
                         )
                     }
-                    <button className='breeds-select select-limit' onClick={() => setOpenLimit(!openLimit)}>
+                    <button className='Breeds__settings-select select-limit' onClick={() => setOpenLimit(!openLimit)}>
                         <span>{selectedLimit.name}</span>
                         <img src="./images/breeds/arrow-down.svg" alt="arrow" />
                     </button>
@@ -88,14 +88,14 @@ const Breeds = () => {
                             </ul>
                         </div>
                     )}
-                    <button className="breeds-sort" onClick={() => setOrder('order=DESC')}>
+                    <button className="Breeds__settings-sort" onClick={() => setOrder('order=DESC')}>
                         <img src="./images/breeds/z-a.svg" alt="z-a" />
                     </button>
-                    <button className="breeds-sort" onClick={() => setOrder('order=ASC')}>
+                    <button className="Breeds__settings-sort" onClick={() => setOrder('order=ASC')}>
                         <img src="./images/breeds/a-z.svg" alt="a-z" />
                     </button>
                 </div>
-                <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
+                <div className="Breeds__grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allBreeds.map((item, index) =>
                         <div 
                             key={item.reference_image_id}

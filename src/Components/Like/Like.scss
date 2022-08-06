@@ -1,0 +1,78 @@
+.Like {
+    width: 680px;
+    height: 840px;
+    position: relative;
+
+    .active {
+        background-color: #FF868E !important;
+        color: #fff !important;
+        background: url(../../../public/images/voting/like-white.svg) center center no-repeat;
+
+        img {
+            display: none;
+        }
+    }
+
+    .choice-wrapper {
+        position: relative;
+        width: 680px;
+        height: 770px;
+        padding: 20px;
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 20px;
+
+        .flex-wrapper-back {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            a {
+                height: 40px;
+
+                .btn-back {
+                    height: 40px;
+                    width: 40px;
+                    padding: 10px 14px;
+                    background: #FBE0DC;
+                    border-radius: 10px;
+                }
+            }
+
+            .voting-lable {
+                height: 40px;
+                margin-left: 10px;
+                background: #FF868E;
+                border-radius: 10px;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 40px;
+                text-transform: uppercase;
+                text-align: center;
+                color: #fff;
+                padding: 0 30px;
+                letter-spacing: 2px;
+            }
+        }
+
+        .no-items {
+            background-color: #E5E5E5;
+            height: 60px;
+            width: 640px;
+            margin-top: 20px;
+            line-height: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            color: #8C8C8C;
+        }
+
+        .container-grid {
+            height: 620px;
+            overflow: auto;
+            margin-top: 20px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+}

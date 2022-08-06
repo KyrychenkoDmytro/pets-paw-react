@@ -1,5 +1,6 @@
-import './Favourite.css';
+import './Favourite.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
+import GridItem from '../GridItem/GridItem'
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -33,7 +34,7 @@ const Favourite = () => {
             })
     }, [])
 
-    const deleteFavourite = (id) => {
+    const deleteImage = (id) => {
         fetch(`https://api.thecatapi.com/v1/favourites/${id}`, {
             method: 'DELETE',
             headers: {
@@ -56,12 +57,18 @@ const Favourite = () => {
                 {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allFavourites.map((item, index) =>
-                        <div onClick={() => deleteFavourite(item.id)}
-                            key={item.id}
-                            style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
-                            className={`item grid-${index + 1}`}>
-                        </div>)
-                    }
+                    <GridItem
+                    key={item.id}
+                    url={item.image.url}
+                    index={index}
+                    deleteImage={() => deleteImage(item.id)}
+                />
+                        // <div onClick={() => deleteFavourite(item.id)}
+                        //     key={item.id}
+                        //     style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
+                        //     className={`item grid-${index + 1}`}>
+                        // </div>
+                        )}
                 </div>
                 {/* <div className="users-action">
                     <div className="user">

@@ -1,0 +1,62 @@
+.IdBreed {
+    width: 680px;
+    height: 840px;
+    position: relative;
+
+    .choice-wrapper {
+        position: relative;
+        width: 680px;
+        height: 770px;
+        padding: 20px;
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 20px;
+
+        .flex-wrapper-back {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            a {
+                height: 40px;
+
+                .btn-back {
+                    height: 40px;
+                    width: 40px;
+                    padding: 10px 14px;
+                    background: #FBE0DC;
+                    border-radius: 10px;
+                }
+
+            }
+
+            .voting-lable {
+                width: 146px;
+                height: 40px;
+                margin-left: 10px;
+                background: #FBE0DC;
+                border-radius: 10px;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 40px;
+                text-transform: uppercase;
+                text-align: center;
+                color: #FF868E;
+            }
+
+            .show-id-breed {
+                height: 40px;
+                padding: 0 30px;
+                background: #FF868E;
+                border-radius: 10px;
+                font-size: 20px;
+                letter-spacing: 2px;
+                color: #fff;
+                font-weight: 500;
+                line-height: 40px;
+                text-align: center;
+                margin-left: 10px;
+            }
+        }
+    }
+}

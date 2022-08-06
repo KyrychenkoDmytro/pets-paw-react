@@ -1,4 +1,4 @@
-import './Breed.css';
+import './Breed.scss';
 
 import { useEffect, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import './Nav.css';
+import './Nav.scss';
 import { Link, NavLink } from "react-router-dom";
 
 const Nav = () => {
@@ -18,7 +18,7 @@ const Nav = () => {
                     <li><Link to="/gallery"><img src="./images/home/images-search.png" alt="images-search" /></Link></li>
                 </ul>
             </nav>
-            <div className='wrapper'>
+            <div className='Nav-links'>
                 <NavLink to="/voting">VOTING</NavLink>
                 <NavLink to="/breeds">BREEDS</NavLink>
                 <NavLink to="/gallery">GALLERY</NavLink>

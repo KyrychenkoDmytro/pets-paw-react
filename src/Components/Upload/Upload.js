@@ -1,4 +1,4 @@
-import './Upload.css';
+import './Upload.scss';
 
 import { useState } from 'react';
 
@@ -83,8 +83,8 @@ const Upload = ({ openUpload, setOpenUpload }) => {
 
     return (
         <div className={openUpload ? 'Upload active' : 'Upload'} onClick={() => { setOpenUpload(false); setThanksBlock(false); setErrorBlock(false); }}>
-            <div className="upload-container" onClick={(e) => e.stopPropagation()}>
-                <button className='upload-close' onClick={() => { setOpenUpload(false); setThanksBlock(false); setErrorBlock(false); }}>&times;</button>
+            <div className="Upload__container" onClick={(e) => e.stopPropagation()}>
+                <button className='Upload-close' onClick={() => { setOpenUpload(false); setThanksBlock(false); setErrorBlock(false); }}>&times;</button>
                 <h1>Upload a .jpg or .png Cat Image</h1>
                 <p>Any uploads must comply with the <a href="https://thecatapi.com/privacy">upload guidelines</a> or face deletion.</p>
                 <label className={errorBlock ? 'error' : ''} onDrop={dropImage} onDragEnter={dragEnterImage} onDragOver={dragOverImage}>

@@ -1,4 +1,4 @@
-import './Voting.css';
+import './Voting.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 import VotingInfo from './VotingInfo/VotingInfo';
 
@@ -20,7 +20,6 @@ const Voting = () => {
         arr.reverse();
         setArr(arr);
     }
-    // console.log(arr);
 
     const newImage = () => {
         fetch('https://api.thecatapi.com/v1/images/search')
@@ -130,21 +129,5 @@ const Voting = () => {
         </div>
     );
 }
-
-// fetch('https://api.thecatapi.com/v1/votes', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'x-api-key': api_key
-//     },
-//     body: JSON.stringify({
-//         "image_id": "2cyrHWduv",
-//         "sub_id": "my-user-1234",
-//         "value": 0
-//     })
-
-// })
-//     .then(response => response.json())
-//     .then(data => console.log(data))
 
 export default Voting;
