@@ -1,10 +1,27 @@
 .Breed {
     .show-cat {
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 640px;
         height: 360px;
         border-radius: 20px;
         margin-top: 20px;
+        .previous {
+            padding: 0;
+            border: none;
+            background: url(../../../../../public/images/breeds/previous.svg);
+            width: 48px;
+            height: 48px;
+        }
+        .next {
+            padding: 0;
+            border: none;
+            background: url(../../../../../public/images/breeds/next.svg);
+            width: 48px;
+            height: 48px;
+        }
         .wrapper-slides {
             position: absolute;
             left: 50%;
@@ -23,7 +40,7 @@
                 height: 10px;
                 background: #FBE0DC;
                 border-radius: 10px;
-                &:nth-child(1) {
+                &.active {
                     background: #FF868E;
                 }
             }

@@ -11,13 +11,13 @@ const IdBreed = () => {
     let { breedsId } = useParams();
     console.log(breedsId);
 
-    const [breed, setBreed] = useState('');
-    const [url, setUrl] = useState('');
+    const [breed, setBreed] = useState([]);
     const [id, setId] = useState('');
     const [weight, setWeight] = useState('');
+    const [allUrl, setAllUrl] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.thecatapi.com/v1/breeds`,
+        fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedsId}&limit=5`,
             {
                 headers: {
                     'x-api-key': api_key
@@ -25,14 +25,20 @@ const IdBreed = () => {
             })
             .then(response => response.json())
             .then(data => {
-                data = data.filter(item => item.id === breedsId)
                 console.log(data);
-                setBreed(...data);
-                setUrl(data[0].image.url);
-                setId(data[0].id);
-                setWeight(data[0].weight.imperial);
+                setBreed(data[0].breeds[0]);
+                // setUrl(data[0].url);
+                setId(data[0].breeds[0].id);
+                setWeight(data[0].breeds[0].weight.metric);
+                data = data.reduce((accum, item) => {
+                    accum.push(item.url);
+                    return accum;
+                }, [])
+                setAllUrl(data);
             });
     }, [breedsId]);
+
+console.log(allUrl);
 
     return (
 
@@ -44,7 +50,8 @@ const IdBreed = () => {
                     <div className='voting-lable'>breeds</div>
                     <div className='show-id-breed'>{id}</div>
                 </div>
-                <Breed url={url} breed={breed} weight={weight} />
+
+                <Breed urls={allUrl} breed={breed} weight={weight} />
             </div>
 
         </div>

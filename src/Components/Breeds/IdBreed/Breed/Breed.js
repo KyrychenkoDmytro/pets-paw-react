@@ -1,27 +1,32 @@
 import './Breed.scss';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const Breed = (props) => {
-    const [url, setUrl] = useState({});
-    const [breed, setBreed] = useState('');
-    const [weight, setWeight] = useState('');
-    
-    useEffect(() => {
-        setUrl(props.url);
-        setBreed(props.breed);
-        setWeight(props.weight);
-    }, [props]);
+const Breed = ({ urls, breed, weight }) => {
+    let slideNumbers = [0, 1, 2, 3, 4];
+    slideNumbers.length = urls.length;
+
+    const [slideId, setSlideId] = useState(0);
+
+    const previousSlide = () => {
+        if (slideId === 0) setSlideId(urls.length - 1);
+        else setSlideId(slideId - 1);
+    }
+
+    const nextSlide = () => {
+        if (slideId === urls.length - 1) setSlideId(0);
+        else setSlideId(slideId + 1);
+    }
 
     return (
         <div className="Breed">
-            <div className="show-cat" style={{ background: `url(${url}) 0% 0% / cover` }}>
+            <div className="show-cat" style={{ background: `url(${urls[slideId]}) top / cover no-repeat` }}>
+                <button className='previous' onClick={previousSlide}></button>
+                <button className='next' onClick={nextSlide}></button>
                 <div className='wrapper-slides'>
-                    <div className="slide-id"></div>
-                    <div className="slide-id"></div>
-                    <div className="slide-id"></div>
-                    <div className="slide-id"></div>
-                    <div className="slide-id"></div>
+                    {slideNumbers.map((item) =>
+                        <div className={slideId === item ? "slide-id active" : "slide-id"}></div>
+                    )}
                 </div>
             </div>
             <h1 className='id-breed-name'>{breed.name}</h1>
@@ -34,8 +39,8 @@ const Breed = (props) => {
                     </div>
                     <div className='about-breed-right'>
                         <p>Origin: <span>{breed.origin}</span></p>
-                        <p>Weight: <span>{weight}</span></p>
-                        <p>Life span: <span>{breed.life_span}</span></p>
+                        <p>Weight: <span>{weight} kgs</span></p>
+                        <p>Life span: <span>{breed.life_span} years</span></p>
                     </div>
                 </div>
             </div>
