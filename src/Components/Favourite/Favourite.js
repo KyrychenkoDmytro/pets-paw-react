@@ -45,38 +45,26 @@ const Favourite = () => {
             .then(response => response.json())
             .then(data => console.log(data))
     }
-   
+
     return (
         <div className="Favourite">
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
-                    <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
+                    <Link to="/"></Link>
                     <div className='voting-lable'>favourites</div>
                 </div>
                 {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allFavourites.map((item, index) =>
-                    <GridItem
-                    key={item.id}
-                    url={item.image.url}
-                    index={index}
-                    deleteImage={() => deleteImage(item.id)}
-                />
-                        // <div onClick={() => deleteFavourite(item.id)}
-                        //     key={item.id}
-                        //     style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
-                        //     className={`item grid-${index + 1}`}>
-                        // </div>
-                        )}
+                        <GridItem
+                            key={item.id}
+                            url={item.image.url}
+                            index={index}
+                            deleteImage={() => deleteImage(item.id)}
+                        />
+                    )}
                 </div>
-                {/* <div className="users-action">
-                    <div className="user">
-                        <div>22:35</div>
-                        <p>Image ID: <span>fQSunHvl8</span> was added to Favourites</p>
-                        <img src="./images/voting/favourites-small.svg" alt="favourites" />
-                    </div>
-                </div> */}
             </div>
         </div>
     );

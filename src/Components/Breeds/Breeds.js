@@ -59,7 +59,7 @@ const Breeds = () => {
             <SearchPanel />
             <div className='Breeds__choice'>
                 <div className='Breeds__settings'>
-                    <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
+                    <Link to="/"></Link>
                     <div className='Breeds__settings-lable'>breeds</div>
                     <button name="breeds" className='Breeds__settings-select' onClick={() => setOpen(!open)}>
                         <span>{selected}</span>

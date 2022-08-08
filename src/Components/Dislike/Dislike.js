@@ -50,7 +50,7 @@ const Dislike = () => {
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
-                    <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
+                    <Link to="/"></Link>
                     <div className='voting-lable'>Dislikes</div>
                 </div>
                 {noItemFaound && <div className='no-items'>No item found</div>}

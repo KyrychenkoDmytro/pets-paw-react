@@ -28,14 +28,17 @@
             align-items: center;
 
             a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 height: 40px;
-
-                .btn-back {
-                    height: 40px;
-                    width: 40px;
-                    padding: 10px 14px;
-                    background: #FBE0DC;
-                    border-radius: 10px;
+                width: 40px;
+                background: #FBE0DC;
+                border-radius: 10px;
+                &::after {
+                    content: url(../../../public/images/voting/back.svg);
+                    width: 12px;
+                    height: 20px;
                 }
             }
 
@@ -76,48 +79,3 @@
         }
     }
 }
-
-// .Favourite .choice-wrapper .users-action {
-//     margin-top: 60px;
-// }
-
-// .Favourite .choice-wrapper .users-action .user {
-//     display: flex;
-//     width: 640px;
-//     height: 55px;
-//     background: #F8F8F7;
-//     border-radius: 10px;
-//     margin-top: 10px;
-//     padding: 10px;
-// }
-
-// .Favourite .choice-wrapper .users-action .user div {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 35px;
-//     width: 60px;
-//     background-color: #fff;
-//     margin-right: 30px;
-//     font-size: 18px;
-// }
-
-// .Favourite .choice-wrapper .users-action .user p {
-//     margin: 0;
-//     height: 35px;
-//     line-height: 35px;
-//     font-weight: 500;
-//     font-size: 18px;
-//     color: #8C8C8C;
-// }
-
-// .Favourite .choice-wrapper .users-action .user p span {
-//     color: #1D1D1D;
-// }
-
-// .Favourite .choice-wrapper .users-action .user img {
-//     display: block;
-//     width: 20px;
-//     height: 20px;
-//     margin: auto 0 auto auto;
-// }

@@ -55,7 +55,7 @@ const Search = () => {
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
-                    <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
+                    <Link to="/"></Link>
                     <div className='voting-lable'>search</div>
                 </div>
                 <div className="search-result">

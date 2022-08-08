@@ -5,6 +5,10 @@
     height: 544px;
     border-radius: 20px;
     overflow: hidden;
+    &-logo {
+        display: flex;
+        align-items: center;
+    }
 
     .active {
         background-color: #FF868E !important;

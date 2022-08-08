@@ -109,7 +109,7 @@ const Gallery = () => {
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
-                    <Link to="/"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
+                    <Link to="/"></Link>
                     <div className='voting-lable'>gallery</div>
                     <button className='gallery-upload' onClick={() => setOpenUpload(true)}>upload</button>
                 </div>
