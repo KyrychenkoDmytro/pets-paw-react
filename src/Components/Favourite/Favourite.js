@@ -13,6 +13,14 @@ const Favourite = () => {
     const [noItemFaound, setNoItemFound] = useState(false);
     const greedRowCount = Math.ceil(allFavourites.length * 0.6) >= 3 ? Math.ceil(allFavourites.length * 0.6) : 3;
 
+    let AllImage = {};
+    if (allFavourites.length) {
+        AllImage = allFavourites.reduce((accum, item) => {
+            accum[item.image_id] = item.id;
+            return accum;
+        }, {})
+    }
+
     useEffect(() => {
         fetch('https://api.thecatapi.com/v1/favourites', {
             headers: {
@@ -34,16 +42,46 @@ const Favourite = () => {
             })
     }, [])
 
-    const deleteImage = (id) => {
-        fetch(`https://api.thecatapi.com/v1/favourites/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            }
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
+   
+    const deleteImage = (e, id) => {
+        if (AllImage[id]) {
+            e.target.classList.remove('no-active');
+
+            fetch(`https://api.thecatapi.com/v1/favourites/${AllImage[id]}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': api_key
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    delete AllImage[id];
+                    console.log(AllImage);
+                })
+        } else {
+            e.target.classList.add('no-active');
+
+            fetch('https://api.thecatapi.com/v1/favourites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': api_key
+                },
+                body: JSON.stringify({
+                    "image_id": `${id}`,
+                    "sub_id": "my-sub-id-123321"
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.message === 'SUCCESS') AllImage[id] = data.id;
+                    console.log(AllImage);
+                })
+        }
+
     }
 
     return (
@@ -61,7 +99,8 @@ const Favourite = () => {
                             key={item.id}
                             url={item.image.url}
                             index={index}
-                            deleteImage={() => deleteImage(item.id)}
+                            Image={AllImage[item.image_id]}
+                            deleteImage={(e) => deleteImage(e, item.image_id)}
                         />
                     )}
                 </div>

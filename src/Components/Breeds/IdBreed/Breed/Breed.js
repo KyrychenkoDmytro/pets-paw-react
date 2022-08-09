@@ -3,8 +3,6 @@ import './Breed.scss';
 import { useState } from 'react';
 
 const Breed = ({ urls, breed, weight }) => {
-    let slideNumbers = [0, 1, 2, 3, 4];
-    slideNumbers.length = urls.length;
 
     const [slideId, setSlideId] = useState(0);
 
@@ -24,8 +22,8 @@ const Breed = ({ urls, breed, weight }) => {
                 <button className='previous' onClick={previousSlide}></button>
                 <button className='next' onClick={nextSlide}></button>
                 <div className='wrapper-slides'>
-                    {slideNumbers.map((item) =>
-                        <div className={slideId === item ? "slide-id active" : "slide-id"}></div>
+                    {urls.map((item, index) =>
+                        <div className={slideId === index ? "slide-id active" : "slide-id"}></div>
                     )}
                 </div>
             </div>
