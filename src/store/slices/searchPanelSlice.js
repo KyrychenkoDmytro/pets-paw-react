@@ -5,7 +5,6 @@ export const searchPanelSlice = createSlice({
   initialState: {
     value: '',
     breeds:{},
-    favourites:{}
   },
   reducers: {
     searchValue: (state, action) => {
@@ -14,13 +13,10 @@ export const searchPanelSlice = createSlice({
     breedNames: (state, action) => {
       state.breeds = action.payload;
     },
-    myFavourites: (state, action) =>{
-      state.favourites = action.payload;
-    }
+   
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { searchValue, breedNames, myFavourites } = searchPanelSlice.actions;
+export const { searchValue, breedNames } = searchPanelSlice.actions;
 
 export default searchPanelSlice.reducer

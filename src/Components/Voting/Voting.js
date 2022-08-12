@@ -1,13 +1,13 @@
 import './Voting.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 import VotingInfo from './VotingInfo/VotingInfo';
+import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
+const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
 
-const Voting = () => {
     let date = new Date();
     let timeIsNow = `${date.getHours()}:${date.getMinutes()}`;
 
@@ -21,87 +21,54 @@ const Voting = () => {
         setArr(arr);
     }
 
-    const newImage = () => {
-        fetch('https://api.thecatapi.com/v1/images/search')
-            .then(response => response.json())
-            .then(data => {
-                data = data.filter(item => item.id !== undefined)
-                setImage(data);
-                console.log(data);
-            })
+    const newImage = async () => {
+        let { data } = await axios.get('images/search');
+        data = data.filter(item => item.id !== undefined)
+        setImage(data);
     }
     useEffect(() => {
         newImage();
     }, [])
 
-    const addToLikes = (id) => {
-        fetch('https://api.thecatapi.com/v1/votes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            },
-            body: JSON.stringify({
-                "image_id": `${id}`,
-                "sub_id": "my-sub-id-123321",
-                "value": 1
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-
-                if (data.message === 'SUCCESS') {
-                    newImage();
-                    setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: './images/voting/like-small.svg' }]);
-                    console.log(data);
-                }
-            })
+    const addToLikes = async (id) => {
+        const params = {
+            "image_id": `${id}`,
+            "sub_id": "my-sub-id-123321",
+            "value": 1
+        };
+        const response = await axios.post(fetchLikeAndDislike, params);
+        if (response.status >= 200 && response.status <= 299) {
+            newImage();
+            setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: './images/voting/like-small.svg' }]);
+            console.log(response.data);
+        }
     }
 
-    const addToFavourites = (id) => {
-        fetch('https://api.thecatapi.com/v1/favourites', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            },
-            body: JSON.stringify({
-                "image_id": `${id}`,
-                "sub_id": "my-sub-id-123321"
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === 'SUCCESS') {
-                    newImage();
-                    setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Favourites', srcImage: './images/voting/favourites-small.svg' }]);
-                    console.log(data);
-                }
-            })
+    const addToFavourites = async (id) => {
+        const params = {
+            "image_id": `${id}`,
+            "sub_id": "my-sub-id-123321"
+        };
+        const response = await axios.post(fetchFavourites, params);
+        if (response.status >= 200 && response.status <= 299) {
+            newImage();
+            setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Favourites', srcImage: './images/voting/favourites-small.svg' }]);
+            console.log(response.data);
+        }
     }
 
-    const addToDislikes = (id) => {
-        fetch('https://api.thecatapi.com/v1/votes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            },
-            body: JSON.stringify({
-                "image_id": `${id}`,
-                "sub_id": "my-sub-id-123321",
-                "value": 0
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.message === 'SUCCESS') {
-                    newImage();
-                    setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Dislikes', srcImage: './images/voting/dislike-small.svg' }]);
-                    console.log(data);
-                }
-            })
+    const addToDislikes = async (id) => {
+        const params = {
+            "image_id": `${id}`,
+            "sub_id": "my-sub-id-123321",
+            "value": 0
+        };
+        const response = await axios.post(fetchLikeAndDislike, params);
+        if (response.status >= 200 && response.status <= 299) {
+            newImage();
+            setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: './images/voting/like-small.svg' }]);
+            console.log(response.data);
+        }
     }
 
     return (

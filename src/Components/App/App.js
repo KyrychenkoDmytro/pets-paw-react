@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import './App.scss';
 import Home from '../Home/Home';
 import Nav from '../Nav/Nav';
@@ -13,35 +11,10 @@ import Search from '../Search/Search';
 import Like from '../Like/Like';
 import Dislike from '../Dislike/Dislike';
 import Favourite from '../Favourite/Favourite';
+import requests, { api_key } from '../../requests';
 
-import { myFavourites } from '../../store/slices/search/searchPanelSlice';
-
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch('https://api.thecatapi.com/v1/favourites', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': api_key
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        // console.log(data);
-        data = data.filter((item) => item.image.url !== undefined);
-        // console.log(data);
-        data = data.reduce((accum, item) => {
-          accum[item.image_id] = item.id;
-          return accum;
-        }, {})
-        // console.log(data);
-        dispatch(myFavourites(data));
-      })
-  }, [])
 
   return (
     <div className="App">
@@ -49,14 +22,20 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/voting" element={<Voting />} />
-          <Route path="/breeds" element={<Breeds />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/breeds/:breedsId" element={<IdBreed />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/likes" element={<Like />} />
-          <Route path="/dislikes" element={<Dislike />} />
-          <Route path="/favourites" element={<Favourite />} />
+          <Route path="/voting" element={<Voting fetchLikeAndDislike={requests.fetchDisAndLike} fetchFavourites={requests.fetchFavourites}/>} />
+          <Route path="/breeds" element={<Breeds fetchBreeds={requests.fetchBreeds} />} />
+          <Route path="/gallery" element={<Gallery
+            fetchBreeds={requests.fetchBreeds}
+            fetchSearch={requests.fetchSearch}
+            fetchFavourites={requests.fetchFavourites}
+            api_key={api_key}
+            fetchUpload={requests.fetchUpload}
+          />} />
+          <Route path="/breeds/:breedsId" element={<IdBreed fetchBreedId={requests.fetchBreedId} />} />
+          <Route path="/search" element={<Search fetchBreeds={requests.fetchBreeds} fetchSearch={requests.fetchSearch}/>} />
+          <Route path="/likes" element={<Like fetchLike={requests.fetchDisAndLike} api_key={api_key} />} />
+          <Route path="/dislikes" element={<Dislike fetchDislike={requests.fetchDisAndLike} api_key={api_key} />} />
+          <Route path="/favourites" element={<Favourite fetchFavourites={requests.fetchFavourites} api_key={api_key} />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>

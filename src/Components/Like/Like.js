@@ -1,12 +1,12 @@
 import './Like.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 import GridItem from '../GridItem/GridItem';
+import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
 
-const Like = () => {
+const Like = ({ fetchLike, api_key }) => {
     const [allLiked, setAllLiked] = useState([]);
     const [noItemFaound, setNoItemFound] = useState(false);
     const greedRowCount = Math.ceil(allLiked.length * 0.6) >= 3 ? Math.ceil(allLiked.length * 0.6) : 3;
@@ -20,63 +20,41 @@ const Like = () => {
     console.log(AllImage);
 
     useEffect(() => {
-        fetch('https://api.thecatapi.com/v1/votes', {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                data = data.filter((item) => item.value === 1)
-                if (data.length === 0) {
-                    setNoItemFound(true);
-                } else {
-                    setNoItemFound(false);
-                    setAllLiked(data);
-                    console.log(data);
-                }
-            })
-    }, [])
+        const fetchData = async () => {
+            let { data } = await axios.get(fetchLike);
+            data = data.filter((item) => item.value === 1);
+            if (!data.length) setNoItemFound(true);
+            else {
+                setNoItemFound(false);
+                setAllLiked(data);
+                console.log(data);
+            }
+        }
+        fetchData();
+    }, [fetchLike])
 
-    const deleteImage = (e, id) => {
+    const deleteImage = async (e, id) => {
         if (AllImage[id]) {
+            const { data } = await axios.delete(`https://api.thecatapi.com/v1/votes/${AllImage[id]}`, {
+                headers: { 'x-api-key': api_key }
+            });
+            console.log(data);
+            delete AllImage[id];
             e.target.classList.remove('no-active');
-
-            fetch(`https://api.thecatapi.com/v1/votes/${AllImage[id]}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    delete AllImage[id];
-                    console.log(AllImage);
-                })
+            console.log(AllImage);
         } else {
-            e.target.classList.add('no-active');
-
-            fetch('https://api.thecatapi.com/v1/votes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key
-                },
-                body: JSON.stringify({
-                    "image_id": `${id}`,
-                    "sub_id": "my-sub-id-123321",
-                    "value": 1
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.message === 'SUCCESS') AllImage[id] = data.id;
-                    console.log(AllImage);
-                })
+            const params = {
+                "image_id": `${id}`,
+                "sub_id": "my-sub-id-123321",
+                "value": 1
+            };
+            const response = await axios.post(fetchLike, params);
+            console.log(response.data.message);
+            if (response.status >= 200 && response.status <= 299) {
+                AllImage[id] = response.data.id;
+                e.target.classList.add('no-active');
+                console.log(AllImage);
+            }
         }
 
     }

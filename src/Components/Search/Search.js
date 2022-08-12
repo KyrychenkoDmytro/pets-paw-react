@@ -1,14 +1,14 @@
 import './Search.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
+import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { breedNames } from '../../store/slices/search/searchPanelSlice';
+import { breedNames } from '../../store/slices/searchPanelSlice';
 
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
+const Search = ({ fetchBreeds, fetchSearch }) => {
 
-const Search = () => {
     const [allBreedImages, setAllBreedImages] = useState([]);
     const [noItemFaound, setNoItemFound] = useState(false);
 
@@ -19,36 +19,32 @@ const Search = () => {
     const greedRowCount = Math.ceil(allBreedImages.length * 0.6) >= 3 ? Math.ceil(allBreedImages.length * 0.6) : 3;
 
     useEffect(() => {
-        fetch('https://api.thecatapi.com/v1/breeds')
-            .then(response => response.json())
-            .then(data => {
-                data = data.reduce((accum, item) => {
-                    accum[item.name] = item.id;
-                    return accum;
-                }, {})
-                console.log(data);
-                dispatch(breedNames(data));
-            })
-    }, [])
+        const fetchData = async () => {
+            let { data } = await axios.get(fetchBreeds);
+            data = data.reduce((accum, item) => {
+                accum[item.name] = item.id;
+                return accum;
+            }, {})
+            console.log(data);
+            dispatch(breedNames(data));
+        }
+        fetchData();
+    }, [dispatch, fetchBreeds]);
 
     useEffect(() => {
-        fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breeds[value]}&limit=5`, {
-            headers: {
-                'x-api-key': api_key
+        const fetchData = async () => {
+            let { data } = await axios.get(`${fetchSearch}${breeds[value]}&limit=5`);
+            data = data.filter((item) => item['breeds'][0].name === value);
+            if (data.length === 0) {
+                setNoItemFound(true);
+            } else {
+                setNoItemFound(false);
+                setAllBreedImages(data);
+                console.log(data);
             }
-        })
-            .then(response => response.json())
-            .then(data => {
-                data = data.filter((item) => item['breeds'][0].name === value);
-                if (data.length === 0) {
-                    setNoItemFound(true);
-                } else {
-                    setNoItemFound(false);
-                    setAllBreedImages(data);
-                    console.log(data);
-                }
-            })
-    }, [value, breeds])
+        }
+        fetchData();
+    }, [value, breeds, fetchSearch])
 
     return (
         <div className="Search">

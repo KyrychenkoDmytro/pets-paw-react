@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { useRef, useState} from 'react';
 import { useDispatch } from 'react-redux';
 
-import { searchValue } from '../../store/slices/search/searchPanelSlice';
+import { searchValue } from '../../store/slices/searchPanelSlice';
 
 const SearchPanel = () => {
     const [clearValue, setClearValue] = useState('');

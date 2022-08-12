@@ -1,15 +1,13 @@
 import './Breeds.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
+import axios from '../../axios';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
-
 const limits = [{ name: 'Limit: 5', search: 'limit=5' }, { name: 'Limit: 10', search: 'limit=10' }, { name: 'Limit: 15', search: 'limit=15' }, { name: 'Limit: 20', search: 'limit=20' }];
 
-
-const Breeds = () => {
+const Breeds = ({ fetchBreeds }) => {
     const navigate = useNavigate();
 
     const [allBreeds, setAllBreeds] = useState([]);
@@ -17,31 +15,20 @@ const Breeds = () => {
     const [openLimit, setOpenLimit] = useState(false);
     const [selected, setSelected] = useState('All breeds');
     const [selectedLimit, setSelectedLimit] = useState({ name: 'Limit: 5', search: 'limit=5' });
-    const [obj, setObj] = useState([{ name: 'All breeds', id: '' }]);
     const [order, setOrder] = useState('order=ASC');
 
     const greedRowCount = selectedLimit.name.replace(/\D/g, '') * 0.6;
 
     useEffect(() => {
-        fetch(`https://api.thecatapi.com/v1/breeds?${selectedLimit.search}&${order}`, {
-            headers: {
-                'x-api-key': api_key
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                if (order === 'order=DESC') {
-                    data = data.reverse();
-                };
-                setAllBreeds(data);
-                data = data.reduce((accum, item) => {
-                    accum.push({ name: `${item.name}`, id: `${item.id}`, key: `${item.reference_image_id}` });
-                    return accum;
-                }, [])
-                setObj(data);
-            });
-    }, [selectedLimit, order]);
+        const fetchData = async () => {
+            let { data } = await axios.get(`${fetchBreeds}&${selectedLimit.search}&${order}`);
+            if (order === 'order=DESC') data = data.reverse();
+            console.log(data);
+            setAllBreeds(data);
+            return data;
+        }
+        fetchData();
+    }, [selectedLimit, order, fetchBreeds])
 
     const selectAndNavigate = (name, id) => {
         setSelected(name);
@@ -69,7 +56,7 @@ const Breeds = () => {
                         open && (
                             <div id="popup-breeds">
                                 <ul>
-                                    {obj.map((item) =>
+                                    {allBreeds.map((item) =>
                                         <li onClick={() => selectAndNavigate(item.name, item.id)} key={item.name}>
                                             {item.name}
                                         </li>)}
@@ -97,7 +84,7 @@ const Breeds = () => {
                 </div>
                 <div className="Breeds__grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
                     {allBreeds.map((item, index) =>
-                        <div 
+                        <div
                             key={item.reference_image_id}
                             style={{ background: `url(${item.image.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>

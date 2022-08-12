@@ -1,10 +1,10 @@
 import './Upload.scss';
+import axios from '../../axios';
 
 import { useState } from 'react';
 
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
-
-const Upload = ({ openUpload, setOpenUpload }) => {
+const Upload = ({ openUpload, setOpenUpload, fetchUpload }) => {
+    
     const [image, setImage] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [button, setButton] = useState(false);
@@ -50,35 +50,27 @@ const Upload = ({ openUpload, setOpenUpload }) => {
         e.preventDefault();
     }
 
-    const uploadToServer = () => {
+    const uploadToServer = async () => {
         const formData = new FormData();
         formData.append('file', image);
-        fetch('https://api.thecatapi.com/v1/images/upload', {
-            method: 'POST',
-            headers: {
-                // 'Content-Type': 'multipart/form-data',
-                'x-api-key': api_key
-            },
-            body: formData
-        })
-            .then(response => {
-                if (response.status >= 200 && response.status <= 299) {
-                    return response.json();
-                } else {
-                    throw Error(response.statusText);
-                }
-            })
-            .then(data => {
-                console.log(data);
+        const options = {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        };
+        try {
+            const response = await axios.post(fetchUpload, formData, options);
+            console.log(response);
+            if (response.status >= 200 && response.status <= 299) {
+                console.log(response.data);
                 setImageUrl('');
                 setImage('');
                 setThanksBlock(true);
                 setButton(false);
-            }).catch((error) => {
-                console.log(error);
-                setErrorBlock(true);
-                setButton(false);
-            })
+            }
+        } catch (err) {
+            console.log(err);
+            setErrorBlock(true);
+            setButton(false);
+        }
     }
 
     return (

@@ -1,13 +1,13 @@
 import './Gallery.scss';
-import SearchPanel from '../SearchPanel/SearchPanel'
+import SearchPanel from '../SearchPanel/SearchPanel';
+import Upload from '../Upload/Upload';
+import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Upload from '../Upload/Upload';
 
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
+const Gallery = ({ fetchBreeds, fetchSearch, fetchFavourites, api_key, fetchUpload }) => {
 
-const Gallery = () => {
     const [listBreeds, setListBreeds] = useState([{ name: 'none', id: '' }]);
     const [breed, setBreed] = useState('');
     const [allImages, setAllImages] = useState([]);
@@ -21,89 +21,58 @@ const Gallery = () => {
     const addFavourites = {};
 
     useEffect(() => {
-        fetch('https://api.thecatapi.com/v1/breeds', {
-            headers: {
-                'x-api-key': api_key
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                data = data.reduce((accum, item) => {
-                    accum.push({ name: `${item.name}`, id: `${item.id}`, key: `${item.reference_image_id}` });
-                    return accum;
-                }, [])
-                setListBreeds(data);
-            });
-    }, []);
+        const fetchData = async () => {
+            let { data } = await axios.get(fetchBreeds);
+            data = data.reduce((accum, item) => {
+                accum.push({ name: `${item.name}`, id: `${item.id}`, key: `${item.reference_image_id}` });
+                return accum;
+            }, [])
+            setListBreeds(data);
+        }
+        fetchData();
+    }, [fetchBreeds]);
 
     useEffect(() => {
-        fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breed}&${selectedLimit}&${order}&${mimeTypes}`, {
-            headers: {
-                'x-api-key': api_key
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.length === 0) console.log('empty');
-                console.log(data);
-                setAllImages(data);
-            });
-    }, [selectedLimit, order, breed, mimeTypes]);
-
-    const loadNewItems = () => {
-        fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breed}&${selectedLimit}&${order}&${mimeTypes}`, {
-            headers: {
-                'x-api-key': api_key
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.length === 0) console.log('empty');
-                console.log(data);
-                setAllImages(data);
-            });
-    }
-
-    const addToFovourites = (e, id) => {
-        if (addFavourites[id]) {
-            e.target.classList.remove('active');
-
-            fetch(`https://api.thecatapi.com/v1/favourites/${addFavourites[id]}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    delete addFavourites[id];
-                    console.log(addFavourites);
-                })
-        } else {
-            e.target.classList.add('active');
-
-            fetch('https://api.thecatapi.com/v1/favourites', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key
-                },
-                body: JSON.stringify({
-                    "image_id": `${id}`,
-                    "sub_id": "my-sub-id-123321"
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.message === 'SUCCESS') addFavourites[id] = data.id;
-                    console.log(addFavourites);
-                })
+        const loadNewItems = async () => {
+            const { data } = await axios.get(`${fetchSearch}${breed}&${selectedLimit}&${order}&${mimeTypes}`);
+            if (data.length === 0) console.log('empty');
+            setAllImages(data);
+            console.log(data);
         }
+        loadNewItems();
+    }, [fetchSearch, breed, selectedLimit, order, mimeTypes]);
 
+    const loadNewItems = async () => {
+        const { data } = await axios.get(`${fetchSearch}${breed}&${selectedLimit}&${order}&${mimeTypes}`);
+        if (data.length === 0) console.log('empty');
+        setAllImages(data);
+        console.log(data);
     }
+
+    const addToFovourites = async (e, id) => {
+        if (addFavourites[id]) {
+            const { data } = await axios.delete(`favourites/${addFavourites[id]}`, {
+                headers: { 'x-api-key': api_key }
+            });
+            console.log(data);
+            delete addFavourites[id];
+            e.target.classList.remove('active');
+            console.log(addFavourites);
+        } else {
+            const params = {
+                "image_id": `${id}`,
+                "sub_id": "my-sub-id-123321"
+            };
+            const response = await axios.post(fetchFavourites, params);
+            console.log(response.data.message);
+            if (response.status >= 200 && response.status <= 299) {
+                addFavourites[id] = response.data.id;
+                e.target.classList.add('active');
+                console.log(addFavourites);
+            }
+        }
+    }
+    
     return (
         <div className="Gallery">
             <SearchPanel />
@@ -148,7 +117,7 @@ const Gallery = () => {
                         </div>)}
                 </div>
             </div>
-            <Upload openUpload={openUpload} setOpenUpload={setOpenUpload} />
+            <Upload openUpload={openUpload} setOpenUpload={setOpenUpload} fetchUpload={fetchUpload}/>
         </div>
     );
 }

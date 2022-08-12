@@ -1,19 +1,17 @@
 import './Favourite.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 import GridItem from '../GridItem/GridItem'
+import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
-
-
-const Favourite = () => {
+const Favourite = ({ fetchFavourites, api_key }) => {
     const [allFavourites, setAllFavourites] = useState([]);
     const [noItemFaound, setNoItemFound] = useState(false);
     const greedRowCount = Math.ceil(allFavourites.length * 0.6) >= 3 ? Math.ceil(allFavourites.length * 0.6) : 3;
-
     let AllImage = {};
+
     if (allFavourites.length) {
         AllImage = allFavourites.reduce((accum, item) => {
             accum[item.image_id] = item.id;
@@ -22,66 +20,42 @@ const Favourite = () => {
     }
 
     useEffect(() => {
-        fetch('https://api.thecatapi.com/v1/favourites', {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': api_key
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            let { data } = await axios.get(fetchFavourites);
+            data = data.filter((item) => item.image.url !== undefined);
+            if (!data.length) setNoItemFound(true);
+            else {
+                setNoItemFound(false);
+                setAllFavourites(data);
                 console.log(data);
-                data = data.filter((item) => item.image.url !== undefined);
-                if (data.length === 0) {
-                    setNoItemFound(true);
-                } else {
-                    setNoItemFound(false);
-                    setAllFavourites(data);
-                    console.log(data);
-                }
-            })
-    }, [])
-
-   
-    const deleteImage = (e, id) => {
-        if (AllImage[id]) {
-            e.target.classList.remove('no-active');
-
-            fetch(`https://api.thecatapi.com/v1/favourites/${AllImage[id]}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    delete AllImage[id];
-                    console.log(AllImage);
-                })
-        } else {
-            e.target.classList.add('no-active');
-
-            fetch('https://api.thecatapi.com/v1/favourites', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': api_key
-                },
-                body: JSON.stringify({
-                    "image_id": `${id}`,
-                    "sub_id": "my-sub-id-123321"
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.message === 'SUCCESS') AllImage[id] = data.id;
-                    console.log(AllImage);
-                })
+            }
         }
+        fetchData();
+    }, [fetchFavourites])
 
+    
+    const deleteImage = async (e, id) => {
+        if (AllImage[id]) {
+            const { data } = await axios.delete(`https://api.thecatapi.com/v1/favourites/${AllImage[id]}`, {
+                headers: { 'x-api-key': api_key }
+            });
+            console.log(data);
+            delete AllImage[id];
+            e.target.classList.remove('no-active');
+            console.log(AllImage);
+        } else {
+            const params = {
+                "image_id": `${id}`,
+                "sub_id": "my-sub-id-123321"
+            };
+            const response = await axios.post(fetchFavourites, params);
+            console.log(response.data.message);
+            if (response.status >= 200 && response.status <= 299) {
+                AllImage[id] = response.data.id;
+                e.target.classList.add('no-active');
+                console.log(AllImage);
+            }
+        }
     }
 
     return (

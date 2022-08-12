@@ -23,7 +23,7 @@ const Breed = ({ urls, breed, weight }) => {
                 <button className='next' onClick={nextSlide}></button>
                 <div className='wrapper-slides'>
                     {urls.map((item, index) =>
-                        <div className={slideId === index ? "slide-id active" : "slide-id"}></div>
+                        <div key={item} className={slideId === index ? "slide-id active" : "slide-id"}></div>
                     )}
                 </div>
             </div>
