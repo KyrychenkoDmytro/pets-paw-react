@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Home from '../Home/Home';
-import Nav from '../Nav/Nav';
-import Error from '../Error/Error';
-import Voting from '../Voting/Voting';
-import Breeds from '../Breeds/Breeds';
-import Gallery from '../Gallery/Gallery';
-import IdBreed from '../Breeds/IdBreed/IdBreed';
-import Search from '../Search/Search';
-import Like from '../Like/Like';
-import Dislike from '../Dislike/Dislike';
-import Favourite from '../Favourite/Favourite';
-import requests, { api_key } from '../../requests';
+import Home from '../Components/Home/Home';
+import Nav from '../Components/Nav/Nav';
+import Error from '../Components/Error/Error';
+import Voting from '../Containers/Voting/Voting';
+import Breeds from '../Containers/Breeds/Breeds';
+import Gallery from '../Containers/Gallery/Gallery';
+import IdBreed from '../Containers/Breeds/IdBreed/IdBreed';
+import Search from '../Containers/Search/Search';
+import Like from '../Containers/Like/Like';
+import Dislike from '../Containers/Dislike/Dislike';
+import Favourite from '../Containers/Favourite/Favourite';
+import requests, { api_key } from '../requests';
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
       <Router>
         <Nav />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="" element={<Home />} />
           <Route path="/voting" element={<Voting fetchLikeAndDislike={requests.fetchDisAndLike} fetchFavourites={requests.fetchFavourites}/>} />
           <Route path="/breeds" element={<Breeds fetchBreeds={requests.fetchBreeds} />} />
           <Route path="/gallery" element={<Gallery

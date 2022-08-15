@@ -1,5 +1,5 @@
 import './Search.scss';
-import SearchPanel from '../SearchPanel/SearchPanel';
+import SearchPanel from '../../Components/SearchPanel/SearchPanel';
 import axios from '../../axios';
 
 import { Link } from 'react-router-dom';

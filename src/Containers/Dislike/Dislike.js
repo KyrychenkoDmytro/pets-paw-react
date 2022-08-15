@@ -1,37 +1,38 @@
-import './Like.scss';
-import SearchPanel from '../SearchPanel/SearchPanel';
-import GridItem from '../GridItem/GridItem';
+import './Dislike.scss';
+import SearchPanel from '../../Components/SearchPanel/SearchPanel';
+import GridItem from '../../Components/GridItem/GridItem';
 import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const Like = ({ fetchLike, api_key }) => {
-    const [allLiked, setAllLiked] = useState([]);
+const Dislike = ({ fetchDislike, api_key }) => {
+
+    const [allDisliked, setAllDisliked] = useState([]);
     const [noItemFaound, setNoItemFound] = useState(false);
-    const greedRowCount = Math.ceil(allLiked.length * 0.6) >= 3 ? Math.ceil(allLiked.length * 0.6) : 3;
+    const greedRowCount = Math.ceil(allDisliked.length * 0.6) >= 3 ? Math.ceil(allDisliked.length * 0.6) : 3;
     let AllImage = {};
-    if (allLiked.length) {
-        AllImage = allLiked.reduce((accum, item) => {
+
+    if (allDisliked.length) {
+        AllImage = allDisliked.reduce((accum, item) => {
             accum[item.image_id] = item.id;
             return accum;
         }, {})
     }
-    console.log(AllImage);
 
     useEffect(() => {
         const fetchData = async () => {
-            let { data } = await axios.get(fetchLike);
-            data = data.filter((item) => item.value === 1);
+            let { data } = await axios.get(fetchDislike);
+            data = data.filter((item) => item.value === 0);
             if (!data.length) setNoItemFound(true);
             else {
                 setNoItemFound(false);
-                setAllLiked(data);
+                setAllDisliked(data);
                 console.log(data);
             }
         }
         fetchData();
-    }, [fetchLike])
+    }, [fetchDislike]);
 
     const deleteImage = async (e, id) => {
         if (AllImage[id]) {
@@ -46,9 +47,9 @@ const Like = ({ fetchLike, api_key }) => {
             const params = {
                 "image_id": `${id}`,
                 "sub_id": "my-sub-id-123321",
-                "value": 1
+                "value": 0
             };
-            const response = await axios.post(fetchLike, params);
+            const response = await axios.post(fetchDislike, params);
             console.log(response.data.message);
             if (response.status >= 200 && response.status <= 299) {
                 AllImage[id] = response.data.id;
@@ -56,20 +57,19 @@ const Like = ({ fetchLike, api_key }) => {
                 console.log(AllImage);
             }
         }
-
     }
 
     return (
-        <div div className="Like" >
+        <div className="Dislike">
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
                     <Link to="/"></Link>
-                    <div className='voting-lable'>likes</div>
+                    <div className='voting-lable'>Dislikes</div>
                 </div>
                 {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
-                    {allLiked.map((item, index) =>
+                    {allDisliked.map((item, index) =>
                         <GridItem
                             key={item.id}
                             url={item.image.url}
@@ -84,4 +84,4 @@ const Like = ({ fetchLike, api_key }) => {
     );
 }
 
-export default Like;
+export default Dislike;

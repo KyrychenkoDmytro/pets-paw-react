@@ -1,5 +1,5 @@
 import './IdBreed.scss';
-import SearchPanel from '../../SearchPanel/SearchPanel';
+import SearchPanel from '../../../Components/SearchPanel/SearchPanel';
 import Breed from './Breed/Breed';
 import axios from '../../../axios';
 

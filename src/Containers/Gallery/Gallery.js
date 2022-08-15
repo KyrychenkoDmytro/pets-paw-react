@@ -1,5 +1,5 @@
 import './Gallery.scss';
-import SearchPanel from '../SearchPanel/SearchPanel';
+import SearchPanel from '../../Components/SearchPanel/SearchPanel';
 import Upload from '../Upload/Upload';
 import axios from '../../axios';
 

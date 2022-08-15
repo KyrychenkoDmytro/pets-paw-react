@@ -1,6 +1,6 @@
 import './Favourite.scss';
-import SearchPanel from '../SearchPanel/SearchPanel';
-import GridItem from '../GridItem/GridItem'
+import SearchPanel from '../../Components/SearchPanel/SearchPanel';
+import GridItem from '../../Components/GridItem/GridItem'
 import axios from '../../axios';
 
 import { Link } from 'react-router-dom';

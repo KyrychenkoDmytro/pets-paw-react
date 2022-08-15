@@ -1,5 +1,5 @@
 import './Voting.scss';
-import SearchPanel from '../SearchPanel/SearchPanel';
+import SearchPanel from '../../Components/SearchPanel/SearchPanel';
 import VotingInfo from './VotingInfo/VotingInfo';
 import axios from '../../axios';
 
@@ -72,7 +72,7 @@ const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
     }
 
     return (
-        <div className="Voting">
+        <div className='Voting'>
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>

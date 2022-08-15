@@ -1,5 +1,5 @@
 import './Breeds.scss';
-import SearchPanel from '../SearchPanel/SearchPanel';
+import SearchPanel from '../../Components/SearchPanel/SearchPanel';
 import axios from '../../axios';
 
 import { Link, useNavigate } from 'react-router-dom';
