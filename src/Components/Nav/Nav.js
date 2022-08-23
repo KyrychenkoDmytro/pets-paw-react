@@ -8,9 +8,9 @@ const Nav = () => {
             <div className="Nav-logo">
                 <Link to="/"><img src="./logo.svg" alt="logo" /></Link>
             </div>
-            <h1>Hi intern!</h1>
-            <p>Welcome to MI 2022 Front-end test</p>
-            <h2>Lets start using The Cap API</h2>
+            <h1>Hi, Friend!</h1>
+            <p>Welcome to cat gallery.</p>
+            <h2>Lets start using The Cap API!</h2>
             <nav>
                 <ul>
                     <li><Link to="/voting"><img src="./images/home/vote-table.png" alt="vote-table" /></Link></li>

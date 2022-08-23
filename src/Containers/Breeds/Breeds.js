@@ -23,7 +23,6 @@ const Breeds = ({ fetchBreeds }) => {
         const fetchData = async () => {
             let { data } = await axios.get(`${fetchBreeds}&${selectedLimit.search}&${order}`);
             if (order === 'order=DESC') data = data.reverse();
-            console.log(data);
             setAllBreeds(data);
             return data;
         }

@@ -69,12 +69,47 @@
             color: #8C8C8C;
         }
         .container-grid {
-            height: 670px;
+            height: 620px;
             overflow: auto;
             margin-top: 20px;
             display: grid;
             gap: 20px;
             grid-template-columns: 1fr 1fr 1fr;
+            .item {
+
+                .grid-hover {
+                    display: none;
+    
+                    div {
+                        display: none;
+                    }
+                }
+    
+                &:hover {
+                    .grid-hover {
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        margin-top: auto;
+                        height: 100%;
+                        padding: 10px;
+                        border-radius: 20px;
+                        background-color: rgba(185, 93, 116, 0.5);
+    
+                        &:hover {
+                            div {
+                                display: block;
+                                background-color: #fff;
+                                width: 100%;
+                                text-align: center;
+                                border-radius: 10px;
+                                line-height: 30px;
+                                color: rgba(185, 93, 116, 0.8);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

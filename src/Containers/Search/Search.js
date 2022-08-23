@@ -3,48 +3,35 @@ import SearchPanel from '../../Components/SearchPanel/SearchPanel';
 import axios from '../../axios';
 
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { breedNames } from '../../store/slices/searchPanelSlice';
 
 const Search = ({ fetchBreeds, fetchSearch }) => {
 
     const [allBreedImages, setAllBreedImages] = useState([]);
     const [noItemFaound, setNoItemFound] = useState(false);
 
-    const value = useSelector(state => state.search.value);
-    const breeds = useSelector(state => state.search.breeds);
-    const dispatch = useDispatch();
+    const breedId = useSelector(state => state.search.id);
 
     const greedRowCount = Math.ceil(allBreedImages.length * 0.6) >= 3 ? Math.ceil(allBreedImages.length * 0.6) : 3;
 
     useEffect(() => {
-        const fetchData = async () => {
-            let { data } = await axios.get(fetchBreeds);
-            data = data.reduce((accum, item) => {
-                accum[item.name] = item.id;
-                return accum;
-            }, {})
-            console.log(data);
-            dispatch(breedNames(data));
-        }
-        fetchData();
-    }, [dispatch, fetchBreeds]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            let { data } = await axios.get(`${fetchSearch}${breeds[value]}&limit=5`);
-            data = data.filter((item) => item['breeds'][0].name === value);
-            if (data.length === 0) {
-                setNoItemFound(true);
-            } else {
-                setNoItemFound(false);
-                setAllBreedImages(data);
-                console.log(data);
+            const fetchData = async () => {
+                try {
+                    let { data } = await axios.get(`${fetchSearch}${breedId.id}&limit=10`);
+                    if (data.length > 0) {
+                        setNoItemFound(false);
+                        setAllBreedImages(data);
+                    } else {
+                        setAllBreedImages([]);
+                        setNoItemFound(true);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
             }
-        }
-        fetchData();
-    }, [value, breeds, fetchSearch])
+            fetchData();
+    }, [breedId, fetchSearch])
 
     return (
         <div className="Search">
@@ -56,7 +43,7 @@ const Search = ({ fetchBreeds, fetchSearch }) => {
                 </div>
                 <div className="search-result">
                     <div>Search result for: </div>
-                    <span>{value}</span>
+                    <span>{breedId.name}</span>
                 </div>
                 {noItemFaound && <div className='no-items'>No item found</div>}
                 <div className="container-grid" style={{ gridTemplateRows: `repeat(${greedRowCount}, 140px )` }}>
@@ -65,6 +52,9 @@ const Search = ({ fetchBreeds, fetchSearch }) => {
                             key={item.id}
                             style={{ background: `url(${item.url}) 0% 0% / cover` }}
                             className={`item grid-${index + 1}`}>
+                            <div className='grid-hover'>
+                                <div>{breedId.name}</div>
+                            </div>
                         </div>)
                     }
                 </div>

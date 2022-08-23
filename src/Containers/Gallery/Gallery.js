@@ -37,7 +37,6 @@ const Gallery = ({ fetchBreeds, fetchSearch, fetchFavourites, api_key, fetchUplo
             const { data } = await axios.get(`${fetchSearch}${breed}&${selectedLimit}&${order}&${mimeTypes}`);
             if (data.length === 0) console.log('empty');
             setAllImages(data);
-            console.log(data);
         }
         loadNewItems();
     }, [fetchSearch, breed, selectedLimit, order, mimeTypes]);
@@ -46,7 +45,6 @@ const Gallery = ({ fetchBreeds, fetchSearch, fetchFavourites, api_key, fetchUplo
         const { data } = await axios.get(`${fetchSearch}${breed}&${selectedLimit}&${order}&${mimeTypes}`);
         if (data.length === 0) console.log('empty');
         setAllImages(data);
-        console.log(data);
     }
 
     const addToFovourites = async (e, id) => {
