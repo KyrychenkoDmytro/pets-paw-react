@@ -6,7 +6,7 @@ const Nav = () => {
     return (
         <div className="Nav">
             <div className="Nav-logo">
-                <Link to="/"><img src="./logo.svg" alt="logo" /></Link>
+                <Link to="/"><img src="./images/home/logo.svg" alt="logo" /></Link>
             </div>
             <h1>Hi, Friend!</h1>
             <p>Welcome to cat gallery.</p>
