@@ -40,7 +40,7 @@ const IdBreed = ({ fetchBreedId }) => {
             <SearchPanel />
             <div className='choice-wrapper'>
                 <div className='flex-wrapper-back'>
-                    <Link to="/breeds"><img className="btn-back" src="../images/voting/back.svg" alt="search" /></Link>
+                    <Link to="/breeds"><img className="btn-back" src="./images/voting/back.svg" alt="search" /></Link>
                     <div className='voting-lable'>breeds</div>
                     <div className='show-id-breed'>{id}</div>
                 </div>
