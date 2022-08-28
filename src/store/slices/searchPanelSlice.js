@@ -23,4 +23,4 @@ export const searchPanelSlice = createSlice({
 
 export const { searchValue, breedNames, breedId } = searchPanelSlice.actions;
 
-export default searchPanelSlice.reducer
+export default searchPanelSlice.reducer;
