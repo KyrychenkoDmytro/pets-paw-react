@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/pets-paw-react/static/css/main.875452d6.css",
-    "main.js": "/pets-paw-react/static/js/main.b185b5b3.js",
+    "main.js": "/pets-paw-react/static/js/main.ff36c47b.js",
     "static/media/ok.svg": "/pets-paw-react/static/media/ok.4989a5e6786739992974.svg",
     "static/media/error.svg": "/pets-paw-react/static/media/error.63a89cecb1f51731486e.svg",
     "static/media/favourites-small.svg": "/pets-paw-react/static/media/favourites-small.24841d9c5881f9860c7c.svg",
@@ -15,10 +15,10 @@
     "index.html": "/pets-paw-react/index.html",
     "static/media/upload.svg": "/pets-paw-react/static/media/upload.897ccd92c7846e3c1bff.svg",
     "main.875452d6.css.map": "/pets-paw-react/static/css/main.875452d6.css.map",
-    "main.b185b5b3.js.map": "/pets-paw-react/static/js/main.b185b5b3.js.map"
+    "main.ff36c47b.js.map": "/pets-paw-react/static/js/main.ff36c47b.js.map"
   },
   "entrypoints": [
     "static/css/main.875452d6.css",
-    "static/js/main.b185b5b3.js"
+    "static/js/main.ff36c47b.js"
   ]
 }
