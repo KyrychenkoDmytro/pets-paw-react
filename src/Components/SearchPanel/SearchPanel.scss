@@ -70,6 +70,14 @@
         }
     }
 
+    .disabled {
+        cursor: not-allowed;
+            &::after {
+                opacity: .2;
+                pointer-events: none;
+            }
+    }
+
     nav {
         a {
             display: flex;

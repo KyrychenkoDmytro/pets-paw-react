@@ -1,4 +1,4 @@
-export const api_key = "c4ead829-65a6-45da-afc9-4c5a1391c8ef";
+export const api_key = "live_15EQgTOqWH8RhHnlQDL6HfRdQtBHgcXW8gOAlxJcN5zSGnzDIhrmrWHzDiEMM4Jj";
 
 const requests = {
     fetchBreeds: `breeds?api_key=${api_key}`,

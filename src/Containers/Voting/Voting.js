@@ -12,14 +12,7 @@ const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
     let timeIsNow = `${date.getHours()}:${date.getMinutes()}`;
 
     const [image, setImage] = useState([]);
-    const [arr, setArr] = useState([]);
-
-    if (arr.length > 4) {
-        arr.reverse();
-        arr.length = 4;
-        arr.reverse();
-        setArr(arr);
-    }
+    const [userActions, setUserActions] = useState([]);
 
     const newImage = async () => {
         let { data } = await axios.get('images/search');
@@ -39,8 +32,10 @@ const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
         const response = await axios.post(fetchLikeAndDislike, params);
         if (response.status >= 200 && response.status <= 299) {
             newImage();
-            setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: './images/voting/like-small.svg' }]);
-            console.log(response.data);
+            if (userActions.length >= 4) {
+                userActions.length = 3
+            }
+            setUserActions([{ time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: '/images/voting/like-small.svg' }, ...userActions]);
         }
     }
 
@@ -52,8 +47,10 @@ const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
         const response = await axios.post(fetchFavourites, params);
         if (response.status >= 200 && response.status <= 299) {
             newImage();
-            setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Favourites', srcImage: './images/voting/favourites-small.svg' }]);
-            console.log(response.data);
+            if (userActions.length >= 4) {
+                userActions.length = 3
+            }
+            setUserActions([{ time: timeIsNow, imageId: id, blockName: 'Favorites', srcImage: '/images/voting/favourites-small.svg' }, ...userActions]);
         }
     }
 
@@ -66,8 +63,10 @@ const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
         const response = await axios.post(fetchLikeAndDislike, params);
         if (response.status >= 200 && response.status <= 299) {
             newImage();
-            setArr([...arr, { time: timeIsNow, imageId: id, blockName: 'Likes', srcImage: './images/voting/like-small.svg' }]);
-            console.log(response.data);
+            if (userActions.length >= 4) {
+                userActions.length = 3
+            }
+            setUserActions([{ time: timeIsNow, imageId: id, blockName: 'Dislikes', srcImage: '/images/voting/dislike-small.svg' }, ...userActions]);
         }
     }
 
@@ -90,7 +89,7 @@ const Voting = ({ fetchLikeAndDislike, fetchFavourites }) => {
                     </div>
                 )}
                 <div className="users-action">
-                    {arr.map((item) => <VotingInfo key={item.imageId} time={item.time} imageId={item.imageId} blockName={item.blockName} srcImage={item.srcImage} />)}
+                    {userActions.map((item) => <VotingInfo key={item.imageId} time={item.time} imageId={item.imageId} blockName={item.blockName} srcImage={item.srcImage} />)}
                 </div>
             </div>
         </div>

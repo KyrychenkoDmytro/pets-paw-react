@@ -49,7 +49,7 @@ const SearchPanel = () => {
     const listItemClick = (name, id) => {
         setOpen(false);
         setClearValue(name);
-        setId({name, id});
+        setId({ name, id });
     }
 
 
@@ -69,7 +69,11 @@ const SearchPanel = () => {
                     </div>
                 )
             }
-            <Link to="/search" onClick={handleSearch}><button className="SearchPanel__btn"></button></Link>
+            <Link to="/search" onClick={handleSearch}>
+                <button
+                    className={`SearchPanel__btn ${clearValue === '' ? 'disabled' : ''}`}
+                    disabled={clearValue === ''}
+                ></button></Link>
             <nav>
                 <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>
                 <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
