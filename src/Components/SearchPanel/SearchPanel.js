@@ -75,9 +75,9 @@ const SearchPanel = () => {
                     disabled={clearValue === ''}
                 ></button></Link>
             <nav>
-                <NavLink to="/likes"><img src="./images/voting/like.svg" alt="like" /></NavLink>
-                <NavLink to="/favourites"><img src="./images/voting/favourites.svg" alt="favourites" /></NavLink>
-                <NavLink to="/dislikes"><img src="./images/voting/dislike.svg" alt="dislike" /></NavLink>
+                <NavLink to="/likes"><img src="/images/voting/like.svg" alt="like" /></NavLink>
+                <NavLink to="/favourites"><img src="/images/voting/favourites.svg" alt="favourites" /></NavLink>
+                <NavLink to="/dislikes"><img src="/images/voting/dislike.svg" alt="dislike" /></NavLink>
             </nav>
         </div>
     );
