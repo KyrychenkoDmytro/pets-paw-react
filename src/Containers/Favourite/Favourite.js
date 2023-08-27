@@ -27,7 +27,6 @@ const Favourite = ({ fetchFavourites, api_key }) => {
             else {
                 setNoItemFound(false);
                 setAllFavourites(data);
-                console.log(data);
             }
         }
         fetchData();
@@ -36,24 +35,20 @@ const Favourite = ({ fetchFavourites, api_key }) => {
     
     const deleteImage = async (e, id) => {
         if (AllImage[id]) {
-            const { data } = await axios.delete(`https://api.thecatapi.com/v1/favourites/${AllImage[id]}`, {
+            await axios.delete(`https://api.thecatapi.com/v1/favourites/${AllImage[id]}`, {
                 headers: { 'x-api-key': api_key }
             });
-            console.log(data);
             delete AllImage[id];
             e.target.classList.remove('no-active');
-            console.log(AllImage);
         } else {
             const params = {
                 "image_id": `${id}`,
                 "sub_id": "my-sub-id-123321"
             };
             const response = await axios.post(fetchFavourites, params);
-            console.log(response.data.message);
             if (response.status >= 200 && response.status <= 299) {
                 AllImage[id] = response.data.id;
                 e.target.classList.add('no-active');
-                console.log(AllImage);
             }
         }
     }

@@ -22,7 +22,6 @@ const Upload = ({ openUpload, setOpenUpload, fetchUpload }) => {
         setErrorBlock(false);
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0];
-            console.log(file);
             setImage(file);
             setButton(true);
             fileReader.readAsDataURL(file);
@@ -35,7 +34,6 @@ const Upload = ({ openUpload, setOpenUpload, fetchUpload }) => {
         setErrorBlock(false);
         if (e.dataTransfer.files && e.dataTransfer.files.length) {
             const file = e.dataTransfer.files[0];
-            console.log(file);
             setImage(file);
             setButton(true);
             fileReader.readAsDataURL(file);
@@ -58,18 +56,17 @@ const Upload = ({ openUpload, setOpenUpload, fetchUpload }) => {
         };
         try {
             const response = await axios.post(fetchUpload, formData, options);
-            console.log(response);
+
             if (response.status >= 200 && response.status <= 299) {
-                console.log(response.data);
                 setImageUrl('');
                 setImage('');
                 setThanksBlock(true);
                 setButton(false);
             }
         } catch (err) {
-            console.log(err);
             setErrorBlock(true);
             setButton(false);
+            throw err;
         }
     }
 

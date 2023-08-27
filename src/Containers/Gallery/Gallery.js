@@ -35,7 +35,6 @@ const Gallery = ({ fetchBreeds, fetchSearch, fetchFavourites, api_key, fetchUplo
     useEffect(() => {
         const loadNewItems = async () => {
             const { data } = await axios.get(`${fetchSearch}${breed}&${selectedLimit}&${order}&${mimeTypes}`);
-            if (data.length === 0) console.log('empty');
             setAllImages(data);
         }
         loadNewItems();
@@ -43,30 +42,25 @@ const Gallery = ({ fetchBreeds, fetchSearch, fetchFavourites, api_key, fetchUplo
 
     const loadNewItems = async () => {
         const { data } = await axios.get(`${fetchSearch}${breed}&${selectedLimit}&${order}&${mimeTypes}`);
-        if (data.length === 0) console.log('empty');
         setAllImages(data);
     }
 
     const addToFovourites = async (e, id) => {
         if (addFavourites[id]) {
-            const { data } = await axios.delete(`favourites/${addFavourites[id]}`, {
+            await axios.delete(`favourites/${addFavourites[id]}`, {
                 headers: { 'x-api-key': api_key }
             });
-            console.log(data);
             delete addFavourites[id];
             e.target.classList.remove('active');
-            console.log(addFavourites);
         } else {
             const params = {
                 "image_id": `${id}`,
                 "sub_id": "my-sub-id-123321"
             };
             const response = await axios.post(fetchFavourites, params);
-            console.log(response.data.message);
             if (response.status >= 200 && response.status <= 299) {
                 addFavourites[id] = response.data.id;
                 e.target.classList.add('active');
-                console.log(addFavourites);
             }
         }
     }

@@ -19,7 +19,6 @@ const IdBreed = ({ fetchBreedId }) => {
 
         const fetchData = async () => {
             let { data } = await axios.get(`${fetchBreedId}${breedsId}`);
-            console.log(data);
             setBreed(data[0].breeds[0]);
             setId(data[0].breeds[0].id);
             setWeight(data[0].breeds[0].weight.metric);

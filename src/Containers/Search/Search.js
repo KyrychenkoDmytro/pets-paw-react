@@ -27,7 +27,7 @@ const Search = ({ fetchBreeds, fetchSearch }) => {
                         setNoItemFound(true);
                     }
                 } catch (err) {
-                    console.log(err);
+                    throw err;
                 }
             }
             fetchData();

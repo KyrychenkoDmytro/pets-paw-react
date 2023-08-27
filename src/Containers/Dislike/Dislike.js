@@ -28,7 +28,6 @@ const Dislike = ({ fetchDislike, api_key }) => {
             else {
                 setNoItemFound(false);
                 setAllDisliked(data);
-                console.log(data);
             }
         }
         fetchData();
@@ -36,13 +35,11 @@ const Dislike = ({ fetchDislike, api_key }) => {
 
     const deleteImage = async (e, id) => {
         if (AllImage[id]) {
-            const { data } = await axios.delete(`https://api.thecatapi.com/v1/votes/${AllImage[id]}`, {
+            await axios.delete(`https://api.thecatapi.com/v1/votes/${AllImage[id]}`, {
                 headers: { 'x-api-key': api_key }
             });
-            console.log(data);
             delete AllImage[id];
             e.target.classList.remove('no-active');
-            console.log(AllImage);
         } else {
             const params = {
                 "image_id": `${id}`,
@@ -50,11 +47,9 @@ const Dislike = ({ fetchDislike, api_key }) => {
                 "value": 0
             };
             const response = await axios.post(fetchDislike, params);
-            console.log(response.data.message);
             if (response.status >= 200 && response.status <= 299) {
                 AllImage[id] = response.data.id;
                 e.target.classList.add('no-active');
-                console.log(AllImage);
             }
         }
     }
